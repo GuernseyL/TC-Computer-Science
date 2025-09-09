@@ -6,7 +6,7 @@ public class Prog335h {
     public static void main(String[] args) throws IOException {
         Scanner file = new Scanner(new File("Langdat/Prog127a.dat"));
         System.out.println("P Q Value");
-        while (file.hasNext) {
+        while (file.hasNext()) {
             int P = file.nextInt();
             int Q = file.nextInt();
             int V = diceroll(Q, P);
@@ -29,5 +29,15 @@ public class Prog335h {
         return 3 * Q;
     }
 }
+
+/*
+P Q Value
+2 5 9
+4 4 12
+6 2 8
+1 3 4
+5 5 15
+1 2 5
+ */
 
 
