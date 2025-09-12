@@ -6,58 +6,58 @@ import java.util.Scanner;
 public class Prog465h {
     public static void main(String[] args) throws IOException {
         Scanner File = new Scanner(new File("langdat/prog465h.dat"));
-        while (File.hasNextLine()) {
-            int[][] big = new int[File.nextInt()][File.nextInt()];
-            int total = 0;
-            for (int r = 0; r < big.length; ++r) {
-                for (int c = 0; c < big[0].length; ++c) {
-                    big[r][c] = File.nextInt();
-                    if (big[r][c] > 0) {
-                        ++total;
+            while (File.hasNextLine()) {
+                int[][] big = new int[File.nextInt()][File.nextInt()];
+                int total = 0;
+                for (int r = 0; r < big.length; ++r) {
+                    for (int c = 0; c < big[0].length; ++c) {
+                        big[r][c] = File.nextInt();
+                        if (big[r][c] > 0) {
+                            ++total;
+                        }
                     }
                 }
-            }
 
-            int[][] compressed = new int[total][3];
+                int[][] compressed = new int[total][3];
 
-            System.out.println("Original Matrix");
-            for (int r = 0; r < big.length; ++r) {
-                for (int c = 0; c < big[0].length; ++c) {
-                    System.out.print(big[r][c] + " ");
+                System.out.println("Original Matrix");
+                for (int r = 0; r < big.length; ++r) {
+                    for (int c = 0; c < big[0].length; ++c) {
+                        System.out.print(big[r][c] + " ");
+                    }
+                    System.out.println();
                 }
-                System.out.println();
-            }
 
-            if (total * 3 > big.length * big[0].length) {
-                System.out.println("The Original Matrix is Abundant");
-            }
+                if (total * 3 > big.length * big[0].length) {
+                    System.out.println("The Original Matrix is Abundant");
+                }
 
-            int comRow = 0;
-            for (int r = 0; r < big.length; ++r) {
-                for (int c = 0; c < big[0].length; ++c) {
-                    if (big[r][c] > 0) {
-                        compressed[comRow][0] = r+1;
-                        compressed[comRow][1] = c+1;
-                        compressed[comRow][2] = big[r][c];
-                        ++comRow;
+                int comRow = 0;
+                for (int r = 0; r < big.length; ++r) {
+                    for (int c = 0; c < big[0].length; ++c) {
+                        if (big[r][c] > 0) {
+                            compressed[comRow][0] = r + 1;
+                            compressed[comRow][1] = c + 1;
+                            compressed[comRow][2] = big[r][c];
+                            ++comRow;
+                        }
                     }
                 }
-            }
 
-            for (int r = 0; r < compressed.length; ++r) {
-                for (int c = 0; c < compressed[0].length; ++c) {
-                    System.out.print(compressed[r][c] + " ");
+                for (int r = 0; r < compressed.length; ++r) {
+                    for (int c = 0; c < compressed[0].length; ++c) {
+                        System.out.print(compressed[r][c] + " ");
+                    }
+                    System.out.println();
                 }
-                System.out.println();
-            }
 
-            if (total * 3 < big.length * big[0].length) {
-                System.out.println("The Original Matrix is Sparse");
-            } else if (total * 3 == big.length * big[0].length) {
-                System.out.println("The Original Matrix and the Sparse Matrix " +
-                        "Equally Efficient");
+                if (total * 3 < big.length * big[0].length) {
+                    System.out.println("The Original Matrix is Sparse");
+                } else if (total * 3 == big.length * big[0].length) {
+                    System.out.println("The Original Matrix and the Sparse Matrix " +
+                            "Equally Efficient");
+                }
             }
-        }
     }
 }
 
