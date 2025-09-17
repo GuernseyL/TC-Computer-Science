@@ -25,11 +25,11 @@ public class Prog492h {
             System.out.println();
         }
 
-        String[][] board2 = new String[30][30];
+        String[][] ansBoard = new String[30][30];
 
         for (r = 0; r < board.length; ++r ) {
-            int count = 0;
             for (int c = 0; c < board[r].length; ++c ) {
+                int count = 0;
                 //1
                 if (r >= 1) {
                     String ch = board[r-1][c];
@@ -38,21 +38,21 @@ public class Prog492h {
                     }
                 }
                 //2
-                if (r >= 1 && c <= board[r].length-2) {
+                if ((r >= 1) && (c <= board[0].length-2)) {
                     String ch = board[r-1][c+1];
                     if (ch.equals("*")){
                         ++count;
                     }
                 }
                 //3
-                if (c <= board[r].length-2) {
+                if (c <= board[0].length-2) {
                     String ch = board[r][c+1];
                     if (ch.equals("*")){
                         ++count;
                     }
                 }
                 //4
-                if (r <= board.length-2 && c <= board[r].length-2) {
+                if (r <= board.length-2 && c <= board[0].length-2) {
                     String ch = board[r+1][c+1];
                     if (ch.equals("*")){
                         ++count;
@@ -86,7 +86,38 @@ public class Prog492h {
                         ++count;
                     }
                 }
+
+                if (count <= 1||count >= 4){
+                    ansBoard[r][c] = ".";
+                }
+                if (count ==3) {
+                    ansBoard[r][c] = "*";
+                }
+                else { ansBoard[r][c] = board[r][c]; }
             }
         }
+        board = ansBoard;
+
+        System.out.println("\n\n");
+    }
+
+    /*public static int[][] boardCheck(int[][] board) {
+        for (int r = 0; r < board.length; ++r) {
+            for (int c = 0; c < board[r].length; ++c) {
+                if ((r >= 1) || (r >= 1 && c <= board[r].length-2) || (c <= board[r].length-2) || (r <= board.length-2 && c >= 1) || )
+                }
+            }
+        }
+        return board;
+    }*/
+
+    public static int[][] boardCheck(int r, int c, int[][] board, int indexR, int indexC, int count) {
+        if (r < 0) {
+            if (c < 0) {if index }
+            else if (c >= board[0].length-2) { }
+            else { }
+        }
+
+        boardCheck(r, c, board);
     }
 }
