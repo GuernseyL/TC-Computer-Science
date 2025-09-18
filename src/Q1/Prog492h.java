@@ -11,7 +11,7 @@ public class Prog492h {
         String[][] board = new String[30][30];
         int r = 0;
 
-        while(File.hasNext()) {
+        while (File.hasNext()) {
             String line = File.nextLine();
             String[] stuff = line.split("");
             board[r] = stuff;
@@ -24,114 +24,90 @@ public class Prog492h {
             }
             System.out.println();
         }
+        System.out.println("\n\n");
+            String[][] ansBoard = new String[30][30];
+            for (String[] row : board) {
+                for (String index : row) {
+                    System.out.print(index + " ");
+                }
+                System.out.println();
 
-        String[][] ansBoard = new String[30][30];
-
-        for (r = 0; r < board.length; ++r ) {
-            for (int c = 0; c < board[r].length; ++c ) {
+        for (r = 0; r < board.length; ++r) {
+            for (int c = 0; c < board[r].length; ++c) {
                 int count = 0;
                 //1
                 if (r >= 1) {
-                    String ch = board[r-1][c];
-                    if (ch.equals("*")){
+                    String ch = board[r - 1][c];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //2
-                if ((r >= 1) && (c <= board[0].length-2)) {
-                    String ch = board[r-1][c+1];
-                    if (ch.equals("*")){
+                if ((r >= 1) && (c <= board[0].length - 2)) {
+                    String ch = board[r - 1][c + 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //3
-                if (c <= board[0].length-2) {
-                    String ch = board[r][c+1];
-                    if (ch.equals("*")){
+                if (c <= board[0].length - 2) {
+                    String ch = board[r][c + 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //4
-                if (r <= board.length-2 && c <= board[0].length-2) {
-                    String ch = board[r+1][c+1];
-                    if (ch.equals("*")){
+                if (r <= board.length - 2 && c <= board[0].length - 2) {
+                    String ch = board[r + 1][c + 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //5
-                if (r <= board.length-2) {
-                    String ch = board[r+1][c];
-                    if (ch.equals("*")){
+                if (r <= board.length - 2) {
+                    String ch = board[r + 1][c];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //6
-                if (r <= board.length-2 && c >= 1) {
-                    String ch = board[r+1][c-1];
-                    if (ch.equals("*")){
+                if (r <= board.length - 2 && c >= 1) {
+                    String ch = board[r + 1][c - 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //7
                 if (c >= 1) {
-                    String ch = board[r][c-1];
-                    if (ch.equals("*")){
+                    String ch = board[r][c - 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
                 //8
                 if (r >= 1 && c >= 1) {
-                    String ch = board[r-1][c-1];
-                    if (ch.equals("*")){
+                    String ch = board[r - 1][c - 1];
+                    if (ch.equals("*")) {
                         ++count;
                     }
                 }
 
-                if (count <= 1||count >= 4){
+                if (count <= 1 || count >= 4) {
                     ansBoard[r][c] = ".";
                 }
-                if (count ==3) {
+                if (count == 3) {
                     ansBoard[r][c] = "*";
+                } else {
+                    ansBoard[r][c] = board[r][c];
                 }
-                else { ansBoard[r][c] = board[r][c]; }
             }
         }
         board = ansBoard;
-
-        System.out.println("\n\n");
-    }
-
-    /*public static int[][] boardCheck(int[][] board) {
-        for (int r = 0; r < board.length; ++r) {
-            for (int c = 0; c < board[r].length; ++c) {
-                if ((r >= 1) || (r >= 1 && c <= board[r].length-2) || (c <= board[r].length-2) || (r <= board.length-2 && c >= 1) || )
-                }
-            }
-        }
-        return board;
-    }*/
-
-    public static String[][] boardCheck(int c, int r, String[][] board, String[][] AnsBoard, int indexC, int indexR, int count) {
-        if (count == -1) {
-            return AnsBoard;
-        }
-        if (c < indexC) {
-            if (r < indexR) /* Next Line */ {
-                if (indexC >= 30) {
-                    if (board[c][r].equals("*")) {
-                        ++count;
-                        if (count >= 4 || count <= 1) { AnsBoard[indexC][indexR] = ".";}
-                        else if (count == 3) { AnsBoard[indexC][indexR] = "*"; }
+                for (String[] row : board) {
+                    for (String index : row) {
+                        System.out.print(index + " ");
                     }
-                    count = 0;
-                    boardCheck(indexC - 1, indexR - 1, board, AnsBoard, 0, indexR += 1, count); }
-                else if (indexR >= 30) /* End */ { boardCheck(c, r, board, AnsBoard, indexC, indexR, -1); }
-                else if (c <= board[0].length - 2) {
-                } else /* Restart */ {
-                    boardCheck(indexC - 1, indexR - 1, board, AnsBoard, indexC, indexR + 1, count);
-                }
-            }
-        }
-        return AnsBoard;
+                    System.out.println();
+        System.out.println("\n\n");
     }
 }

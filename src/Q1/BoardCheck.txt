@@ -1,0 +1,54 @@
+public static String[][] boardCheck(int c, int r, String[][] board, String[][] AnsBoard, int indexC, int indexR, int count) {
+        if (count == -1) {
+            return AnsBoard;
+        }
+
+        if (r < indexR && r != -1) {
+            if (c == indexC) {
+                if (board[c][r].equals("*")) { AnsBoard = boardCheck(c+1, r, board, AnsBoard, indexC, indexR, count+1); }
+                else { AnsBoard = boardCheck(c+1, r, board, AnsBoard, indexC, indexR, count); }
+            }
+            else if (c < indexC && c != -1) {
+                if (board[c][r].equals("*")) { AnsBoard = boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count+1); }
+                else { AnsBoard = boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count); }
+            }
+            else if (c > indexC && c < board[0].length) {
+                if (board[c][r].equals("*")) { count++; }
+                if (indexR >= board.length-1) {
+                    if (count == 3) { AnsBoard[c][r] = "*"; }
+                    else if (count >= 4 || count <= 1) { AnsBoard[c][r] = "."; }
+                    AnsBoard = boardCheck(c, r, board, AnsBoard, indexC, indexR, -1);
+                }
+                else if (indexC >= board.length-1) {
+                    if (count == 3) { AnsBoard[c][r] = "*"; }
+                    else if (count >= 4 || count <= 1) { AnsBoard[c][r] = "."; }
+                    AnsBoard = boardCheck(0, indexR+1, board, AnsBoard, 0, indexR+1, 0);
+                }
+            }
+        }
+        if (r == indexR) {
+            if (c < indexC && indexC != -1) {
+                if (board[c][r].equals("*")) { AnsBoard =boardCheck(c, r+1, board, AnsBoard, indexC, indexR, count+1); }
+                AnsBoard =boardCheck(c, r+1, board, AnsBoard, indexC, indexR, count);
+            }
+            else if (c > indexC && c < board[0].length) {
+                if (board[c][r].equals("*")) { AnsBoard =boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count+1); }
+                AnsBoard =boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count);
+            }
+        }
+        if (r > indexR && r < board.length) {
+            if (c > indexC && c < board[0].length) {
+                if (board[c][r].equals("*")) { AnsBoard =boardCheck(c-1, r, board, AnsBoard, indexC, indexR, count+1); }
+                AnsBoard =boardCheck(c-1, r, board, AnsBoard, indexC, indexR, count);
+            }
+            if (c == indexC) {
+                if (board[c][r].equals("*")) { AnsBoard =boardCheck(c-1, r, board, AnsBoard, indexC, indexR, count+1); }
+                AnsBoard =boardCheck(c-1, r, board, AnsBoard, indexC, indexR, count);
+            }
+            if (c < indexC && c != -1) {
+                if (board[c][r].equals("*")) { AnsBoard =boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count+1); }
+                AnsBoard = boardCheck(c, r-1, board, AnsBoard, indexC, indexR, count);
+            }
+        }
+        return AnsBoard;
+    }
