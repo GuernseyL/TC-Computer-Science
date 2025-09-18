@@ -111,13 +111,27 @@ public class Prog492h {
         return board;
     }*/
 
-    public static int[][] boardCheck(int r, int c, int[][] board, int indexR, int indexC, int count) {
-        if (r < 0) {
-            if (c < 0) {if index }
-            else if (c >= board[0].length-2) { }
-            else { }
+    public static String[][] boardCheck(int c, int r, String[][] board, String[][] AnsBoard, int indexC, int indexR, int count) {
+        if (count == -1) {
+            return AnsBoard;
         }
-
-        boardCheck(r, c, board);
+        if (c < indexC) {
+            if (r < indexR) /* Next Line */ {
+                if (indexC >= 30) {
+                    if (board[c][r].equals("*")) {
+                        ++count;
+                        if (count >= 4 || count <= 1) { AnsBoard[indexC][indexR] = ".";}
+                        else if (count == 3) { AnsBoard[indexC][indexR] = "*"; }
+                    }
+                    count = 0;
+                    boardCheck(indexC - 1, indexR - 1, board, AnsBoard, 0, indexR += 1, count); }
+                else if (indexR >= 30) /* End */ { boardCheck(c, r, board, AnsBoard, indexC, indexR, -1); }
+                else if (c <= board[0].length - 2) {
+                } else /* Restart */ {
+                    boardCheck(indexC - 1, indexR - 1, board, AnsBoard, indexC, indexR + 1, count);
+                }
+            }
+        }
+        return AnsBoard;
     }
 }
