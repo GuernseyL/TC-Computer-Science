@@ -32,7 +32,7 @@ public class Com {
         }
     }
     public String toString(){
-        return myid+" \t "+mycode+" \t "+mysales+" \t "+mycom;
+        return myid+"\t"+mycode+"\t"+mysales+"\t"+mycom;
     }
 }
 

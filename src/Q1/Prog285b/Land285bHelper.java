@@ -7,9 +7,9 @@ public class Land285bHelper {
         myroot=null;
     }
 
-    public void add(Node spot){
+    public void addFront(Node spot){
         if (myroot == null) {
-            myroot=spot;
+            myroot = spot;
         }
         else {
             spot.mynext = myroot;
@@ -20,8 +20,21 @@ public class Land285bHelper {
     public void print() {
         Node temp = myroot;
         while(temp!=null){
-            System.out.println(temp);
+            System.out.println(temp.getCom().toString());
             temp=temp.mynext;
         }
     }
+
+    public void addBack(Node spot){
+        if (myroot == null) {
+            myroot = spot;
+        }
+        else {
+            Node temp = myroot;
+            while(temp.mynext!=null){
+                temp = temp.mynext;
+            }
+            temp.mynext = spot;
+        }
+        }
 }

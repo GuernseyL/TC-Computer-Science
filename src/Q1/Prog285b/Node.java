@@ -8,4 +8,8 @@ public class Node {
         myperson=peop;
         mynext=null;
     }
+
+    public Com getCom() {
+        return myperson;
+    }
 }
