@@ -31,6 +31,9 @@ public class Com {
             }
         }
     }
+
+    public int getmyCode() { return mycode; }
+    public double getmycommission() { return mycom; }
     public String toString(){
         return myid+"\t"+mycode+"\t"+mysales+"\t"+mycom;
     }

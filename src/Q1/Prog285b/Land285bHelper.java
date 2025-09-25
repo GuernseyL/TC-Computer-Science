@@ -36,5 +36,20 @@ public class Land285bHelper {
             }
             temp.mynext = spot;
         }
+    }
+
+    public void calc() {
+        Node temp = myroot;
+        while (temp!=null){
+            Com wow = temp.getCom();
+            wow.calc();
+            temp=temp.mynext;
         }
+    }
+
+    public void delete0(){
+        while((myroot != null)&&(myroot.getCom().getmycommission() == 0 )){
+            myroot = myroot.mynext;
+        }
+    }
 }

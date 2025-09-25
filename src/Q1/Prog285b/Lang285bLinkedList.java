@@ -13,6 +13,8 @@ public class Lang285bLinkedList {
         while (input.hasNext()) {
             list.addBack(new Node(new Com(input.nextInt(), input.nextInt(), input.nextDouble())));
         }
+        list.calc();
+
         list.print();
     }
 }
