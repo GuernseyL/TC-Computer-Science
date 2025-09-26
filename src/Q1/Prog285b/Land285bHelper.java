@@ -1,5 +1,8 @@
 package Q1.Prog285b;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Land285bHelper {
     private Node myroot;
 
@@ -47,9 +50,35 @@ public class Land285bHelper {
         }
     }
 
+    public Iterator<Com> iterator() {
+        ArrayList<Com> stuff = new ArrayList<Com>();
+        Node temp = myroot;
+        while (temp!= null) {
+            stuff.add(temp.getCom());
+            temp = temp.mynext;
+        }
+        return stuff.iterator();
+    }
+
+
     public void delete0(){
         while((myroot != null)&&(myroot.getCom().getmycommission() == 0 )){
             myroot = myroot.mynext;
         }
+
+        Node prev = myroot;
+        Node temp = myroot;
+        while(temp!=null){
+            if (temp.getCom().getmycommission()==0){
+                prev.mynext = temp.mynext;
+                temp = temp.mynext;
+            }
+            else {
+                prev = temp;
+            }
+            temp = temp.mynext;
+        }
     }
 }
+
+

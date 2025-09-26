@@ -16,5 +16,19 @@ public class Lang285bLinkedList {
         list.calc();
 
         list.print();
+
+        System.out.println();
+
+        list.delete0();
+
+        list.print();
+
+        System.out.println();
+
+        Iterator<Com> things = list.iterator();
+        while (things.hasNext()) {
+            Com cool = things.next();
+            System.out.println(cool);
+        }
     }
 }
