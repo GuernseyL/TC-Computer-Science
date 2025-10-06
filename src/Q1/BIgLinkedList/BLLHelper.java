@@ -1,7 +1,5 @@
 package Q1.BIgLinkedList;
 
-import Q1.Prog285b.Com;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -92,7 +90,7 @@ public class BLLHelper {
     public int getSpot(int spot) {
         if (!isEmpty()){
             Node temp = myroot;
-            while (spot != 0) {
+            while (spot > 0) {
                 temp = temp.mynext;
                 --spot;
             }
@@ -128,8 +126,13 @@ public class BLLHelper {
     public void removeSpot(int spot) {
         if (!isEmpty()){
             Node temp = myroot;
-            while (spot != 1) {
+            while (spot > 0 && temp.mynext!=null) {
                 temp = temp.mynext;
+                --spot;
+            }
+            if (temp.mynext == null){
+                temp = null;
+                return;
             }
             temp.mynext = temp.mynext.mynext;
         }
@@ -178,11 +181,11 @@ public class BLLHelper {
         return temp;
     }
 
-    public Iterator<Node> iterator() {
-        ArrayList<Node> stuff = new ArrayList<Node>();
+    public Iterator<Integer> iterator() {
+        ArrayList<Integer> stuff = new ArrayList<Integer>();
         Node temp = myroot;
         while (temp!= null) {
-            stuff.add(temp);
+            stuff.add(temp.getVal());
             temp = temp.mynext;
         }
         return stuff.iterator();
@@ -225,6 +228,7 @@ public class BLLHelper {
         while (temp != null) {
             if (temp.getVal() == data) { return pos; }
             temp = temp.mynext;
+            ++pos;
         }
         return -1;
     }
@@ -249,23 +253,69 @@ public class BLLHelper {
         while (temp != null) {
             if (temp.getVal() < data) { return pos; }
             temp = temp.mynext;
+            ++pos;
         }
         return 0;
     }
 
     public BLLHelper sort() {
-        BLLHelper tempA = new BLLHelper();
-        while (!this.isEmpty()) {
-            tempA.addLast(this.getMin());
-            this.removeSpot(this.findSlotMinFirst());
+        int[] data = new int[getCount()];
+        for (int i = 0; i < getCount(); ++i) {
+            data[i] = getNum(i);
         }
-        return tempA;
+        for (int i = 0; i < data.length; ++i) {
+            for (int j = i + 1; j < data.length; ++j) {
+                if (data[i] > data[j]) {
+                    int temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                }
+            }
+        }
+        BLLHelper temp = new BLLHelper();
+        for (int i = 0; i < data.length; i++) {
+            temp.addLast(data[i]);
+        }
+        return temp;
+    }
+
+    public int lose58() {
+        Node temp = myroot;
+        int count = 0;
+        while (temp.mynext != null && temp != null) {
+            if (temp.mynext.getVal() == 58) {
+                temp = temp.mynext.mynext;
+                ++count;
+            }
+            temp = temp.mynext;
+        }
+        return count;
+    }
+
+    public int getEvenCount() {
+        Node temp = myroot;
+        int count = 0;
+        while (temp != null) {
+            if (temp.getVal() % 2 == 0) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    public void killOdds() {
+        Node temp = myroot;
+        while (temp != null) {
+            if (temp.mynext.getVal() % 2 == 1) {
+                temp.mynext = temp.mynext.mynext;
+            }
+        }
     }
 
     public void print() {
         Node temp = myroot;
         while (temp != null) {
-            System.out.println(myroot.getVal());
+            System.out.println(temp.getVal());
             temp = temp.mynext;
         }
     }
