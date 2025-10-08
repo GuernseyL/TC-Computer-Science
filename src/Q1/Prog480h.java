@@ -56,11 +56,32 @@ public class Prog480h {
                     System.out.println();
                 }
             }
-            System.out.print("Correct: ");
-            for (int i = 1; i < 11; ++i) {
-                System.out.print(Key[i][2] + " ");
+            int lastindex = 0;
+            for (int i = 0; i < 24; ++i) {
+                if (Key[1][i] != -1) {
+                    ++lastindex;
+                }
+                if (Key[1][i] == -1) {
+                    break;
+                }
             }
-
+            System.out.print("Correct: ");
+            for (int r = 1; r < Key.length-1; ++r) {
+                int correct = 0;
+                int Wrong = 0;
+                for (int c = 2; c < lastindex; ++c) {
+                    if (Key[r][c] == Key[r][1]) { ++correct; }
+                    else { ++Wrong; }
+                }
+                Key[r][lastindex] = correct;
+                Key[r][lastindex+1] = Wrong;
+                System.out.print(Key[r][lastindex] + " ");
+            }
+            System.out.println();
+            System.out.print("Wrong: ");
+            for (int r = 1; r < Key.length-1; ++r) {
+                System.out.print(Key[r][lastindex+1] + " ");
+            }
         }
     }
 }
