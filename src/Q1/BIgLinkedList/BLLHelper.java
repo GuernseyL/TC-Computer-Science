@@ -141,11 +141,13 @@ public class BLLHelper {
     public void clear() {
         while (myroot.mynext != null) {
             Node temp = myroot;
-            while (temp.mynext != null) {
+            while (temp.mynext.mynext != null) {
                 temp = temp.mynext;
             }
-            temp = null;
+            temp.mynext = null;
+            myroot = myroot.mynext;
         }
+        myroot = null;
     }
 
     public boolean checkForNum(int num) {
@@ -282,12 +284,12 @@ public class BLLHelper {
     public int lose58() {
         Node temp = myroot;
         int count = 0;
-        while (temp.mynext != null && temp != null) {
+        while (temp.mynext != null) {
             if (temp.mynext.getVal() == 58) {
-                temp = temp.mynext.mynext;
+                temp.mynext = temp.mynext.mynext;
                 ++count;
             }
-            temp = temp.mynext;
+            else { temp = temp.mynext; }
         }
         return count;
     }
@@ -299,16 +301,18 @@ public class BLLHelper {
             if (temp.getVal() % 2 == 0) {
                 ++count;
             }
+            temp = temp.mynext;
         }
         return count;
     }
 
     public void killOdds() {
         Node temp = myroot;
-        while (temp != null) {
+        while (temp.mynext != null) {
             if (temp.mynext.getVal() % 2 == 1) {
                 temp.mynext = temp.mynext.mynext;
             }
+            else { temp = temp.mynext; }
         }
     }
 
