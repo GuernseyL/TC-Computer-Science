@@ -17,7 +17,6 @@ public class Prog492h {
             board[r] = stuff;
             ++r;
         }
-
         for (String[] row : board) {
             for (String index : row) {
                 System.out.print(index + " ");
