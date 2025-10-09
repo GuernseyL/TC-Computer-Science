@@ -27,16 +27,12 @@ public class Prog492h {
         for (int i = 0; i < 15; ++i) {
             System.out.println("\n\n");
             String[][] ansBoard = new String[30][30];
-            for (String[] row : board) {
-                for (String index : row) {
-                    System.out.print(index + " ");
-                }
-                System.out.println();
                 for (r = 0; r < board.length; ++r) {
-                    for (int c = 0; c < board[r].length; ++c) {
+                    for (int c = 0; c < 30; ++c) {
                         int count = 0;
                         //1
                         if (r >= 1) {
+                            System.out.println(r + " " + c + " " + board[r].length + " " + i);
                             String ch = board[r - 1][c];
                             if (ch.equals("*")) {
                                 ++count;
@@ -102,8 +98,12 @@ public class Prog492h {
                         }
                     }
                 }
-                board = ansBoard;
+            for (String[] row : ansBoard) {
+                for (String index : row) {
+                    System.out.print(index + " ");
+                }
             }
+                board = ansBoard;
         }
     }
 }
