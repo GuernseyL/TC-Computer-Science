@@ -22,6 +22,7 @@ public class Lang285bDoubleHelper {
         if (myroot == null) {
             myroot = node;
         }
+
         else {
             doubleNode temp = myroot;
             while (temp.myNext != null) {
@@ -50,12 +51,17 @@ public class Lang285bDoubleHelper {
     }
 
     public void remove0() {
-        if (myroot == null) {
-            return;
+        if (myroot != null && myroot.getCom() == 0.0) {
+            myroot = myroot.myNext;
         }
 
-        while(myroot.getCom() == 0) {
-            myroot = myroot.myNext;
+        doubleNode temp = myroot;
+
+        while(temp != null) {
+            if (temp.getCom() == 0.0) {
+                temp.myPrev.myNext = temp.myNext;
+            }
+            temp = temp.myNext;
         }
     }
 }

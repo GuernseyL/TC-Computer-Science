@@ -17,7 +17,7 @@ public class Lang1061hHelper {
         else {
             Node temp = myroot;
             while (temp.myNext != null) {
-                if (spot.getWord().charAt(0) <= (temp.myNext.getWord().charAt(0))) {
+                if (spot.getWord().compareTo(temp.myNext.getWord()) <= 0 ) {
                     spot.myNext = temp.myNext;
                     temp.myNext = spot;
                     return;
@@ -60,12 +60,18 @@ public class Lang1061hHelper {
         }
         for (int i = 0; i < words.size(); i++) {
             for (int j = i + 1; j < words.size(); j++) {
-                if (words.get(i).compareTo(words.get(j)) <= 0) {
-                    String beta = words.get(j);
+                if (words.get(j).compareTo(words.get(i)) <= 0) {
+                    String beta = words.get(i);
+                    words.set(i, words.get(j));
+                    words.set(j, beta);
                 }
             }
         }
+        Lang1061hHelper helper = new Lang1061hHelper();
+        for (int i = 0; i < words.size(); i++) {
+            helper.add(words.get(i));
+        }
 
-        return Lang1061hHelper;
+        return this;
     }
 }

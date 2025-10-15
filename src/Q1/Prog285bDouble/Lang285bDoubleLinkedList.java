@@ -19,6 +19,13 @@ public class Lang285bDoubleLinkedList {
         }
 
         helper.calcall();
+
+        helper.print();
+
+        System.out.println("\n\n");
+
+        helper.remove0();
+
         helper.print();
     }
 }
