@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Lang1061hHelper {
     private Node myroot;
 
-    public Lang1061hHelper(){
+    public Lang1061hHelper() {
         myroot=null;
     }
 
@@ -17,10 +17,9 @@ public class Lang1061hHelper {
         else {
             Node temp = myroot;
             while (temp.myNext != null) {
-                if (spot.getWord().compareTo(temp.myNext.getWord()) <= 0 ) {
+                if (spot.getWord().compareTo(temp.myNext.getWord()) <= 0) {
                     spot.myNext = temp.myNext;
                     temp.myNext = spot;
-                    return;
                 }
                 temp = temp.myNext;
             }
@@ -41,6 +40,10 @@ public class Lang1061hHelper {
         if (temp == null) {
             return;
         }
+
+        if (myroot.getWord().equals(word)) {
+            myroot = myroot.myNext;
+        }
         while (temp.myNext != null) {
             if (temp.myNext.getWord().equals(word)) {
                 temp.myNext = temp.myNext.myNext;
@@ -57,6 +60,7 @@ public class Lang1061hHelper {
         ArrayList<String> words = new ArrayList<String>();
         while (temp != null) {
             words.add(temp.getWord());
+            temp = temp.myNext;
         }
         for (int i = 0; i < words.size(); i++) {
             for (int j = i + 1; j < words.size(); j++) {
@@ -72,6 +76,24 @@ public class Lang1061hHelper {
             helper.add(words.get(i));
         }
 
-        return this;
+        return helper;
     }
 }
+
+/*
+CONST
+IF
+LONG
+
+
+
+LONG
+
+
+
+BREAK
+CONTINUE
+LONG
+SHORT
+WHILE
+ */

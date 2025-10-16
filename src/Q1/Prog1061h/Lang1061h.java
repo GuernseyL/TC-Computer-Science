@@ -13,9 +13,9 @@ public class Lang1061h {
         while (file.hasNextLine()) {
             String line = file.nextLine();
             char first = line.charAt(0);
-            System.out.println(first);
             if (first == ('P')) {
                 helper.Print();
+                System.out.println("\n\n");
             }
             else {
                 String word = line.substring(1);
