@@ -14,12 +14,17 @@ public class Lang1061hHelper {
         if (myroot == null) {
             myroot = spot;
         }
+        else if (spot.getWord().compareTo(myroot.getWord()) <= 0) {
+            spot.myNext=myroot;
+            myroot = spot;
+        }
         else {
             Node temp = myroot;
             while (temp.myNext != null) {
-                if (spot.getWord().compareTo(temp.myNext.getWord()) <= 0) {
+                if (spot.getWord().compareTo(temp.getWord()) <= 0) {
                     spot.myNext = temp.myNext;
                     temp.myNext = spot;
+                    return;
                 }
                 temp = temp.myNext;
             }
@@ -51,33 +56,6 @@ public class Lang1061hHelper {
             temp = temp.myNext;
         }
     }
-
-    public Lang1061hHelper sort(){
-        if (myroot == null) {
-            return this;
-        }
-        Node temp = myroot;
-        ArrayList<String> words = new ArrayList<String>();
-        while (temp != null) {
-            words.add(temp.getWord());
-            temp = temp.myNext;
-        }
-        for (int i = 0; i < words.size(); i++) {
-            for (int j = i + 1; j < words.size(); j++) {
-                if (words.get(j).compareTo(words.get(i)) <= 0) {
-                    String beta = words.get(i);
-                    words.set(i, words.get(j));
-                    words.set(j, beta);
-                }
-            }
-        }
-        Lang1061hHelper helper = new Lang1061hHelper();
-        for (int i = 0; i < words.size(); i++) {
-            helper.add(words.get(i));
-        }
-
-        return helper;
-    }
 }
 
 /*
@@ -92,8 +70,8 @@ LONG
 
 
 BREAK
-CONTINUE
 LONG
+CONTINUE
 SHORT
 WHILE
  */
