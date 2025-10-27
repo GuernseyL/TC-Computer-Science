@@ -39,13 +39,15 @@ public class BCLLHelper {
             }
             temp.mynext = spot;
             spot.myprev = temp;
+            spot.mynext = head;
+            head.myprev = spot;
         }
     }
 
     public int getCount() {
-        int count = 0;
-        Node temp = head;
-        while (temp != null) {
+        int count = 1;
+        Node temp = head.mynext;
+        while (temp != head) {
             count++;
             temp = temp.mynext;
         }
@@ -59,9 +61,10 @@ public class BCLLHelper {
             temp = temp.mynext;
             --num2;
         }
-        spot.mynext = temp.mynext.mynext;
-        temp.mynext = spot;
-        spot.myprev = temp;
+        spot.mynext = temp;
+        temp.myprev.mynext = spot;
+        spot.myprev = temp.myprev;
+        temp.myprev = spot;
     }
 
     public boolean isEmpty() {
@@ -70,7 +73,11 @@ public class BCLLHelper {
 
     public boolean isThere(int num) {
         Node temp = head;
-        while (temp != null) {
+        if (temp.getVal() == num) {
+            return true;
+        }
+        temp = temp.mynext;
+        while (temp != head) {
             if (temp.getVal() == num) {
                 return true;
             }
@@ -89,7 +96,7 @@ public class BCLLHelper {
     public int getLast() {
         if (!isEmpty()){
             Node temp = head;
-            while (temp.mynext!=null){
+            while (temp.mynext != head){
                 temp = temp.mynext;
             }
             return temp.getVal();
@@ -110,21 +117,28 @@ public class BCLLHelper {
     }
 
     public void removeFirst() {
+        head.myprev.mynext = head.mynext;
+        head.mynext.myprev = head.myprev;
         head = head.mynext;
     }
 
     public void removeLast() {
         Node temp = head;
-        while (temp.mynext!=null){
+        while (temp.mynext!=head){
             temp = temp.mynext;
         }
-        temp = null;
+        head.myprev = temp.myprev;
+        temp.myprev.mynext = head;
+        temp = temp.mynext;
     }
 
     public int countLess10() {
         int count = 0;
         Node temp = head;
-        while (temp != null) {
+        if (temp.getVal() < 10) {
+            ++count;
+        }
+        while (temp != head) {
             if (temp.getVal() < 10) {
                 ++count;
             }
@@ -136,34 +150,29 @@ public class BCLLHelper {
     public void removeSpot(int spot) {
         if (!isEmpty()){
             Node temp = head;
-            while (spot > 0 && temp.mynext!=null) {
+            while (spot > 0) {
                 temp = temp.mynext;
                 --spot;
             }
-            if (temp.mynext == null){
-                temp = null;
-                return;
-            }
-            temp.mynext = temp.mynext.mynext;
-            temp.mynext.myprev = temp;
+            temp.myprev.mynext = temp.mynext;
+            temp.mynext.myprev = temp.myprev;
+            temp = temp.mynext;
         }
     }
 
     public void clear() {
         while (head.mynext != null) {
-            Node temp = head;
-            while (temp.mynext.mynext != null) {
-                temp = temp.mynext;
-            }
-            temp.mynext = null;
             head = head.mynext;
+            head.myprev = null;
         }
         head = null;
     }
 
     public boolean checkForNum(int num) {
         Node temp = head;
-        while (temp != null) {
+        if (temp.getVal() == num) { return true; }
+        temp = temp.mynext;
+        while (temp != head) {
             if (temp.getVal() == num) { return true; }
             temp = temp.mynext;
         }
@@ -175,29 +184,27 @@ public class BCLLHelper {
         while (pos != 0) {
             temp = temp.mynext;
             --pos;
-            if (temp == null) { return -1; }
         }
         return temp.getVal();
     }
 
     public BCLLHelper getReverse() {
         BCLLHelper temp = new BCLLHelper();
-        int[] data = new int[getCount()];
-        int reverse = 0;
-        for (int i = getCount() - 1; i >= 0; --i) {
-            data[reverse] = getNum(i);
-            ++reverse;
+        Node temp2 = head.myprev;
+        while (temp2 != head) {
+            temp.addFront(temp2.getVal());
+            temp2 = temp2.myprev;
         }
-        for (int i = 0; i < getCount() - 1; ++i) {
-            temp.addLast(data[i]);
-        }
+        temp.addFront(temp2.getVal());
         return temp;
     }
 
     public Iterator<Integer> iterator() {
         ArrayList<Integer> stuff = new ArrayList<Integer>();
         Node temp = head;
-        while (temp!= null) {
+        stuff.add(temp.getVal());
+        temp = temp.mynext;
+        while (temp != head) {
             stuff.add(temp.getVal());
             temp = temp.mynext;
         }
@@ -207,7 +214,9 @@ public class BCLLHelper {
     public double avg() {
         Node temp = head;
         double total = 0.0;
-        while (temp != null) {
+        total += temp.getVal();
+        temp = temp.mynext;
+        while (temp != head) {
             total += temp.getVal();
             temp = temp.mynext;
         }
@@ -217,7 +226,9 @@ public class BCLLHelper {
     public int getMax() {
         Node temp = head;
         int max = 0;
-        while (temp != null) {
+        if (temp.getVal() > max) { max = temp.getVal(); }
+        temp = temp.mynext;
+        while (temp != head) {
             if (temp.getVal() > max) { max = temp.getVal(); }
             temp = temp.mynext;
         }
@@ -227,7 +238,8 @@ public class BCLLHelper {
     public int getMin() {
         Node temp = head;
         int min = temp.getVal();
-        while (temp != null) {
+        temp = temp.mynext;
+        while (temp != head) {
             if (temp.getVal() < min) { min = temp.getVal(); }
             temp = temp.mynext;
         }
@@ -238,7 +250,10 @@ public class BCLLHelper {
         Node temp = head;
         int data = this.getMax();
         int pos = 0;
-        while (temp != null) {
+        if (temp.getVal() == data) { return pos; }
+        temp = temp.mynext;
+        ++pos;
+        while (temp != head) {
             if (temp.getVal() == data) { return pos; }
             temp = temp.mynext;
             ++pos;
@@ -251,7 +266,9 @@ public class BCLLHelper {
         int data = this.getMin();
         int pos = 0;
         int last = pos;
-        while (temp != null) {
+        temp = temp.mynext;
+        ++pos;
+        while (temp != head) {
             ++pos;
             if (temp.getVal() == data) { last = pos; }
             temp = temp.mynext;
@@ -293,15 +310,21 @@ public class BCLLHelper {
     }
 
     public int lose58() {
-        Node temp = head;
         int count = 0;
-        while (temp.mynext != null) {
-            if (temp.mynext.getVal() == 58) {
-                temp.mynext = temp.mynext.mynext;
-                temp.mynext.myprev = temp;
+        while (head.getVal() == 58) {
+            head.mynext.myprev = head.myprev;
+            head.myprev.mynext = head.mynext;
+            head = head.mynext;
+            ++count;
+        }
+        Node temp = head.mynext;
+        while (temp != head) {
+            if (temp.getVal() == 58) {
+                temp.mynext.myprev = temp.myprev;
+                temp.myprev.mynext = temp.mynext;
                 ++count;
             }
-            else { temp = temp.mynext; }
+            temp = temp.mynext;
         }
         return count;
     }
@@ -309,7 +332,11 @@ public class BCLLHelper {
     public int getEvenCount() {
         Node temp = head;
         int count = 0;
-        while (temp != null) {
+        if (temp.getVal() % 2 == 0) {
+            ++count;
+        }
+        temp = temp.mynext;
+        while (temp != head) {
             if (temp.getVal() % 2 == 0) {
                 ++count;
             }
@@ -318,20 +345,27 @@ public class BCLLHelper {
         return count;
     }
 
+    //fix
     public void killOdds() {
-        Node temp = head;
-        while (temp.mynext != null) {
+        while (head.getVal() % 2 == 1) {
+            head.mynext.myprev = head.myprev;
+            head.myprev.mynext = head.mynext;
+            head = head.mynext;
+        }
+        Node temp = head.mynext;
+        while (temp != head) {
             if (temp.mynext.getVal() % 2 == 1) {
-                temp.mynext = temp.mynext.mynext;
-                temp.mynext.myprev = temp;
+                temp.mynext.myprev = temp.myprev;
+                temp.myprev.mynext = temp.mynext;
             }
-            else { temp = temp.mynext; }
+            temp = temp.mynext;
         }
     }
 
     public void print() {
-        Node temp = head;
-        while (temp != null) {
+        System.out.println(head.getVal());
+        Node temp = head.mynext;
+        while (temp != head) {
             System.out.println(temp.getVal());
             temp = temp.mynext;
         }
