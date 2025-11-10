@@ -12,14 +12,6 @@ public class Students implements Comparable<Students> {
         this.grade = grade;
     }
 
-    public boolean changeLowestGrade(int lower) {
-        grade = lower;
-        if (grade < 89) {
-            referals = true;
-        }
-        return referals;
-    }
-
     public void changeReferals(boolean referals) {
         this.referals = referals;
     }
@@ -32,6 +24,4 @@ public class Students implements Comparable<Students> {
     public String getName() {return name;}
     public int getGrade() {return grade;}
     public boolean getReferals() {return referals;}
-
-
 }

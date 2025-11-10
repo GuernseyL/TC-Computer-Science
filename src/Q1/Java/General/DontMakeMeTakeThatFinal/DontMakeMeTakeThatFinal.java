@@ -12,36 +12,46 @@ public class DontMakeMeTakeThatFinal {
         Scanner file = new Scanner(new File("src/Q1/Java/General/DontMakeMeTakeThatFinal/Data.txt"));
         TreeSet<Students> Data = new TreeSet<>();
 
-            int grades = file.nextInt();
-            int disciplines = file.nextInt();
-            for (int i = 1; i <= grades; ++i) {
-                String name = file.next();
-                file.next();
-                int grade = file.nextInt();
-                Students student = new Students(name, grade);
-                Data.add(student);
-                /*if (!Data.isEmpty()) {
-                }*/
-            }
-        for (Students f : Data) {
-            if (f.getGrade() < 89) {
-                Data.remove(f);
+        int grades = file.nextInt();
+        int disciplines = file.nextInt();
+        for (int i = 1; i <= grades; ++i) {
+            String name = file.next();
+            file.next();
+            int grade = file.nextInt();
+            Students student = new Students(name, grade);
+            Data.add(student);
+        }
+        Iterator<Students> iterator = Data.iterator();
+        while (iterator.hasNext()) {
+            Students student = iterator.next();
+            if (student.getGrade() < 89) {
+                iterator.remove();
             }
         }
-            Iterator<Students> iterator = Data.iterator();
-            /*for (int i = 1; i <= disciplines; ++i) {
-                String name = file.next();
-                file.next();
-                file.nextInt();
-                for (Students f : Data) {
-                    if (f.getName().equals(name)) {
-                        f.changeReferals(true);
-                        Data.remove(f);
-                    }
+        iterator = Data.iterator();
+        for (int i = 1; i <= disciplines; ++i) {
+            String name = file.next();
+            file.next();
+            file.nextInt();
+            for (Students f : Data) {
+                if (f.getName().equals(name)) {
+                    f.changeReferals(true);
                 }
-            }*/
+            }
+        }
+
+        while (iterator.hasNext()) {
+            Students student = iterator.next();
+            if (student.getReferals()) {
+                iterator.remove();
+            }
+        }
         for (Students student : Data) {
             System.out.println(student.getName());
         }
     }
 }
+/*
+Larry
+Wilbur
+ */
