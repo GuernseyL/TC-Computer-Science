@@ -1,15 +1,14 @@
-package Q1.Java.General.DontMakeMeTakeThatFinal;
+package Q1.Java.BluePelican.DontMakeMeTakeThatFinal;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class DontMakeMeTakeThatFinal {
     public static void main(String[] args) throws IOException {
-        Scanner file = new Scanner(new File("src/Q1/Java/General/DontMakeMeTakeThatFinal/Data.txt"));
+        Scanner file = new Scanner(new File("src/Q1/Java/General/DontMakeMeTakeThatFinal/CodeTalkerData.dat"));
         TreeSet<Students> Data = new TreeSet<>();
 
         int grades = file.nextInt();
