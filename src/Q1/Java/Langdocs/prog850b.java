@@ -20,7 +20,7 @@ public class prog850b {
             else {
                 String line2 = line.substring(1);
                 int Data = line2.indexOf("\"");
-                String key = line.substring(0, Data+1);
+                String key = line.substring(0, Data+2);
                 line = line.substring(Data+1);
                 String[] data = line.split(",");
                 if (!data[0].equals("total")) {
@@ -38,10 +38,12 @@ public class prog850b {
     }
 }
 /*
-"Action taken in response to recruitment difficulties: brought in contractors: 19197
-"Employees received training in trade related skills (eg plumbing: 35172
-"Existing employees most need to improve trade related skills (eg plumbing: 22545
-"Skills from job applicants: Trade related skills (eg plumbing: 103710
+"Action taken in response to recruitment difficulties: brought in contractors, or contracted work out": 19197
+"Employees received training in trade related skills (eg plumbing, electrical, construction)": 35172
+"Existing employees most need to improve trade related skills (eg plumbing, electrical, construction)": 22545
+"Skills from job applicants: Trade related skills (eg plumbing, electrical, construction) - skills difficult to obtain": 29274
+"Skills from job applicants: Trade related skills (eg plumbing, electrical, construction) - skills not difficult to obtain": 19311
+"Skills from job applicants: Trade related skills (eg plumbing, electrical, construction) - skills not required": 55125
 Action taken in response to recruitment difficulties: employed temporary workers: 8877
 Action taken in response to recruitment difficulties: increased advertising / recruitment spend: 12915
 Action taken in response to recruitment difficulties: increased hours worked by existing employees (eg overtime): 12222
