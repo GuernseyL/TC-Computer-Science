@@ -10,9 +10,7 @@ public class HappyAlphabeticalAnts {
     public static void main(String[] args) throws IOException {
         Scanner file = new Scanner(new File("Langdat/HappyAlphabeticalAnts.txt"));
         String line = file.nextLine();
-        String line2 = line;
         String data = line.toLowerCase();
-        System.out.println(line);
 
         String[] Data = new String[data.length()];
         for (int i = 0; i < data.length(); i++) {
@@ -21,25 +19,34 @@ public class HappyAlphabeticalAnts {
 
         String Long = Data[0] + "";
         String temp = "";
-        int temp2;
+        int temp2 = 0;
         int index = 0;
-        for (int i = 0; i < Data.length-2; i++){
-            temp2 = i+1;
-            while((Data[temp2].equals(" ")) || (Data[temp2].equals(","))){
-                ++temp2;
+        int tempindex = 0;
+        for (int i = 0; i < Data.length; i++){
+            if (temp2 < Data.length-1) {
+                temp2 = i + 1;
+                while ((Data[temp2].equals(" ")) || (Data[temp2].equals(","))) {
+                    ++temp2;
+                }
             }
-            if (Data[i].compareTo(Data[temp2]) < 0)
+            if (Data[i].compareTo(Data[temp2]) < 0) {
                 Long += Data[temp2];
+            }
             else {
                 if (Long.length() > temp.length()) {
                     temp = Long;
+                    tempindex = index+1;
                 }
-                index = temp2;
+                else if (Long.length() == temp.length()) {
+                    temp = Long;
+                    tempindex = temp2+1;
+                }
+                else { index = temp2; }
                 Long = Data[temp2] + "";
             }
-            i = temp2-1;
+            if (i != data.length()-1 ) {i = temp2-1;}
         }
 
-        System.out.println(temp + " starting at character " + index);
+        System.out.println("Happiest: " + temp + " starting at character " + tempindex);
     }
 }
