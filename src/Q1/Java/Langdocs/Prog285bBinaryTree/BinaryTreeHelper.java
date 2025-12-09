@@ -41,11 +41,11 @@ public class BinaryTreeHelper {
     }
 
     public void printpreFix() {
-        printinFix(myroot);
+        printpreFix(myroot);
     }
 
     public void printpostFix() {
-        printinFix(myroot);
+        printpostFix(myroot);
     }
 
     private void printinFix(BinaryTreeNode spot) {
@@ -70,8 +70,37 @@ public class BinaryTreeHelper {
         if (spot == null) {
             return;
         }
-        System.out.println(spot.getmynumber());
         printinFix(spot.myleft);
         printinFix(spot.myright);
+        System.out.println(spot.getmynumber());
+    }
+
+    private void remove(int number) {
+        BinaryTreeNode spot = null;
+        BinaryTreeNode temporary = myroot;
+
+        while (temporary != null && temporary.getmynumber() != number) {
+            spot = temporary;
+            if (number < temporary.getmynumber()) {
+                temporary = temporary.myleft;
+            }
+            else {
+                temporary = temporary.myright;
+            }
+        }
+
+        if (temporary == null) {
+            return;
+        }
+
+        if (temporary.myright == null && temporary.myleft == null) {
+            temporary = null;
+            return;
+        }
+
+        if (temporary.myright == null && temporary.myleft != null && spot.myleft == temporary) {
+            spot.myleft = temporary.myleft;
+        }
+
     }
 }

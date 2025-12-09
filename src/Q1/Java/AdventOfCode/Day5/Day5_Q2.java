@@ -11,7 +11,7 @@ import java.util.Set;
 public class Day5_Q2 {
     public static void main(String[] args) throws IOException {
         Scanner file = new Scanner(new File("langdat/Day5-25.txt"));
-        int fresh = 0;
+        BigInteger fresh = new BigInteger("0");
         ArrayList<String> list = new ArrayList<>();
         while (file.hasNextLine()) {
             String line = file.nextLine();
@@ -22,19 +22,44 @@ public class Day5_Q2 {
                 file.nextLine();
             }
         }
+        System.out.println(list.size());
+        for (String s : list) {
+            System.out.println("Enter 1");
+            for (String ss : list) {
+                System.out.println("Enter 2");
+                int one = Integer.parseInt(s.substring(0, s.indexOf("-")));
+                int two = Integer.parseInt(ss.substring(0, s.indexOf("-")));
+                if (one > two && list.indexOf(s) < list.indexOf(ss)) {
+                    String temp = list.get(list.indexOf(s));
+                    list.set(list.indexOf(ss), s);
+                    list.set(list.indexOf(temp), ss);
+                }
+                for (String sss : list) {
+                    System.out.println(sss);
+                }
+            }
+            System.out.println();
+        }
+        for (String s : list) {
+            System.out.println(s);
+        }
         int i = 0;
         String[] data = new String[list.size()];
         int a = 0;
         for (String s : list) {
             data[a] = s;
+            ++a;
         }
         BigInteger bi = new BigInteger(list.getFirst().substring(0, list.getFirst().indexOf("-")));
         BigInteger bi2 = new BigInteger(list.getFirst().substring(list.getFirst().indexOf("-") + 1));
         for (String s : data) {
+            System.out.println("Enter 3");
             if (s != null) {
+                System.out.println("Enter 4");
                 bi = new BigInteger(s.substring(0, s.indexOf("-")));
                 bi2 = new BigInteger(s.substring(s.indexOf("-") + 1));
                 for (String ss : data) {
+                    System.out.println("Enter 5");
                     if (ss != null) {
                         BigInteger bi3 = new BigInteger(ss.substring(0, ss.indexOf("-")));
                         BigInteger bi4 = new BigInteger(ss.substring(ss.indexOf("-") + 1));
@@ -71,12 +96,12 @@ public class Day5_Q2 {
         for (String sss : list) {
             bi = new BigInteger(sss.substring(0, sss.indexOf("-")));
             bi2 = new BigInteger(sss.substring(sss.indexOf("-") + 1));
-            while (!bi.equals(bi2)) {
+            fresh = fresh.add(bi2.subtract(bi).add(BigInteger.ONE));
+            /*while (!bi.equals(bi2)) {
                 ++fresh;
                 bi = bi.add(BigInteger.ONE);
                 System.out.println(bi + "\t\t\t" + bi2);
-            }
-            ++fresh;
+            }*/
         }
         System.out.print(fresh);
     }
