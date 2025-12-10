@@ -94,13 +94,52 @@ public class BinaryTreeHelper {
         }
 
         if (temporary.myright == null && temporary.myleft == null) {
-            temporary = null;
-            return;
+            if (number<spot.getmynumber()) {
+                spot.myleft = null;
+                return;
+            }
+            else {
+                spot.myright = null;
+                return;
+            }
         }
 
-        if (temporary.myright == null && temporary.myleft != null && spot.myleft == temporary) {
-            spot.myleft = temporary.myleft;
+        if (temporary.myright == null || temporary.myleft == null) {
+            if (temporary == myroot) {
+                if (temporary.myleft == null) {
+                    myroot = temporary.myright;
+                }
+                else {
+                    myroot = temporary.myleft;
+                }
+            }
+            else {
+                if (temporary.myleft == null) {
+                    if (number < spot.getmynumber()) {
+                        spot.myleft = temporary.myright;
+                    }
+                    else {
+                        spot.myright = temporary.myright;
+                    }
+                }
+                else {
+                    if (number < spot.getmynumber()) {
+                        spot.myleft = temporary.myleft;
+                    }
+                    else {
+                        spot.myright = temporary.myleft;
+                    }
+                }
+            }
         }
 
+        if (temporary.myleft != null && temporary.myright != null) {
+            if (temporary == myroot) {
+                spot = temporary.myleft;
+                while (spot.myright != null) {
+                    spot = spot.myright;
+                }
+            }
+        }
     }
 }

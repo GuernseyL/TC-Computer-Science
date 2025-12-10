@@ -24,12 +24,10 @@ public class Day5_Q2 {
         }
         System.out.println(list.size());
         for (String s : list) {
-            System.out.println("Enter 1");
             for (String ss : list) {
-                System.out.println("Enter 2");
-                int one = Integer.parseInt(s.substring(0, s.indexOf("-")));
-                int two = Integer.parseInt(ss.substring(0, s.indexOf("-")));
-                if (one > two && list.indexOf(s) < list.indexOf(ss)) {
+                BigInteger one = new BigInteger(s.substring(0, s.indexOf("-")));
+                BigInteger two = new BigInteger(ss.substring(0, ss.indexOf("-")));
+                if (one.compareTo(two) > 0 && list.indexOf(s) < list.indexOf(ss)) {
                     String temp = list.get(list.indexOf(s));
                     list.set(list.indexOf(ss), s);
                     list.set(list.indexOf(temp), ss);
@@ -53,47 +51,22 @@ public class Day5_Q2 {
         BigInteger bi = new BigInteger(list.getFirst().substring(0, list.getFirst().indexOf("-")));
         BigInteger bi2 = new BigInteger(list.getFirst().substring(list.getFirst().indexOf("-") + 1));
         for (String s : data) {
-            System.out.println("Enter 3");
-            if (s != null) {
-                System.out.println("Enter 4");
-                bi = new BigInteger(s.substring(0, s.indexOf("-")));
-                bi2 = new BigInteger(s.substring(s.indexOf("-") + 1));
-                for (String ss : data) {
-                    System.out.println("Enter 5");
-                    if (ss != null) {
-                        BigInteger bi3 = new BigInteger(ss.substring(0, ss.indexOf("-")));
-                        BigInteger bi4 = new BigInteger(ss.substring(ss.indexOf("-") + 1));
-                        if (s.equals(ss)) {
-                            break;
-                        } else if (bi.compareTo(bi3) >= 0 && bi.compareTo(bi4) <= 0) {
-                            if (bi2.compareTo(bi4) >= 0) {
-                                s = bi3.toString() + bi2.toString();
-                                list.remove(ss);
-                                ++i;
-                                System.out.println("removed \t\t\t " + i);
-                            } else {
-                                s = ss;
-                                list.remove(ss);
-                                ++i;
-                                System.out.println("removed \t\t\t " + i);
-                            }
-                        } else if (bi.compareTo(bi3) < 0) {
-                            if (bi2.compareTo(bi3) >= 0 && bi2.compareTo(bi4) <= 0) {
-                                s = bi.toString() + bi4.toString();
-                                list.remove(ss);
-                                ++i;
-                                System.out.println("removed \t\t\t " + i);
-                            } else if (bi2.compareTo(bi4) >= 0) {
-                                list.remove(ss);
-                                ++i;
-                                System.out.println("removed \t\t\t " + i);
-                            }
-                        }
-                    }
-                }
-            }
+            removal(list, i);
+        }
+
+
+        for (String s : list) {
+            System.out.println(s);
+        }
+
+        System.out.println("\n\n\n\n\n\n");
+        a = 0;
+        for (String s : list) {
+            data[a] = s;
+            ++a;
         }
         for (String sss : list) {
+            System.out.println(sss);
             bi = new BigInteger(sss.substring(0, sss.indexOf("-")));
             bi2 = new BigInteger(sss.substring(sss.indexOf("-") + 1));
             fresh = fresh.add(bi2.subtract(bi).add(BigInteger.ONE));
@@ -104,5 +77,52 @@ public class Day5_Q2 {
             }*/
         }
         System.out.print(fresh);
+    }
+
+
+
+    public static void removal(ArrayList<String> list, int i) {
+        for (String s : list) {
+            if (s != null) {
+                BigInteger bi = new BigInteger(s.substring(0, s.indexOf("-")));
+                BigInteger bi2 = new BigInteger(s.substring(s.indexOf("-") + 1));
+                for (String ss : list) {
+                    if (ss != null) {
+                        BigInteger bi3 = new BigInteger(ss.substring(0, ss.indexOf("-")));
+                        BigInteger bi4 = new BigInteger(ss.substring(ss.indexOf("-") + 1));
+                        if (s.equals(ss)) {
+                            break;
+                        } else if (bi.compareTo(bi3) >= 0 && bi.compareTo(bi4) <= 0) {
+                            if (bi2.compareTo(bi4) >= 0) {
+                                list.set(list.indexOf(s), bi3 + "-" + bi2);
+                                list.remove(ss);
+                                ++i;
+                                System.out.println("removed \t\t\t " + i);
+                                return;
+                            } else {
+                                s = ss;
+                                list.remove(ss);
+                                ++i;
+                                System.out.println("removed \t\t\t " + i);
+                                return;
+                            }
+                        } else if (bi.compareTo(bi3) < 0) {
+                            if (bi2.compareTo(bi3) >= 0 && bi2.compareTo(bi4) <= 0) {
+                                list.set(list.indexOf(s), bi + "-" + bi4);
+                                list.remove(ss);
+                                ++i;
+                                System.out.println("removed \t\t\t " + i);
+                                return;
+                            } else if (bi2.compareTo(bi4) >= 0) {
+                                list.remove(ss);
+                                ++i;
+                                System.out.println("removed \t\t\t " + i);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
