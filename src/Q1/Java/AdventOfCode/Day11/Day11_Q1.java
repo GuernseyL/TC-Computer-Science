@@ -24,24 +24,26 @@ public class Day11_Q1 {
             }
             map.put(key, words);
         }
+        int alpha = Reccursion(map, 0, "you", 0, 0);
     }
 
 
-    public static int Reccursion(Map<String, ArrayList<String>> map, int count, String key, int n, String Oyou) {
+    public static int Reccursion(Map<String, ArrayList<String>> map, int count, String key, int n, int you) {
         if (map.get(key).contains("out")) {
             count++;
+            ++you;
         }
         while (n < map.size()) {
             if (key.equals("you")) {
-
+                count = Reccursion(map, count, map.get(key).get(you), 0, you);
             }
             for (String s : map.get(key)) {
-                count = Reccursion(map, count, s, n + 1, "you");
+                count = Reccursion(map, count, s, n + 1, 0);
             }
         }
 
         if (n > map.size()) {
-            count
+            ++you;
         }
 
         return count;

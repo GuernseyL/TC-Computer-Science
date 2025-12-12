@@ -20,7 +20,7 @@ public class Prog492h {
             }
             System.out.println();
         }
-        for (int i = 0; i < 15; ++i) {
+        for (int i = 0; i < 200; ++i) {
             System.out.println("\n\n");
             String[][] ansBoard = new String[30][30];
             for (int r = 0; r < board.length; ++r) {
