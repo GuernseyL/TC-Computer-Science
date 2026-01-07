@@ -1,4 +1,5 @@
 package Q1.Java.Langdocs.Prog285bBinaryTree;
+import Q1.Java.General.Generals;
 
 public class BinaryTreeHelper {
     private BinaryTreeNode myroot;
@@ -17,7 +18,7 @@ public class BinaryTreeHelper {
             BinaryTreeNode spot = myroot;
             BinaryTreeNode previous = myroot;
             while (spot != null) {
-                if (number < spot.getmynumber()) {
+                if (number < spot.getMyNumber()) {
                     previous = spot;
                     spot = spot.myleft;
                 }
@@ -27,7 +28,7 @@ public class BinaryTreeHelper {
                 }
             }
 
-            if (number < previous.getmynumber()) {
+            if (number < previous.getMyNumber()) {
                 previous.myleft = temporary;
             }
             else {
@@ -53,7 +54,7 @@ public class BinaryTreeHelper {
             return;
         }
         printinFix(spot.myleft);
-        System.out.println(spot.getmynumber());
+        System.out.println(spot.getMyNumber());
         printinFix(spot.myright);
     }
 
@@ -61,27 +62,27 @@ public class BinaryTreeHelper {
         if (spot == null) {
             return;
         }
-        System.out.println(spot.getmynumber());
-        printinFix(spot.myleft);
-        printinFix(spot.myright);
+        System.out.println(spot.getMyNumber());
+        printpreFix(spot.myleft);
+        printpreFix(spot.myright);
     }
 
     private void printpostFix(BinaryTreeNode spot) {
         if (spot == null) {
             return;
         }
-        printinFix(spot.myleft);
-        printinFix(spot.myright);
-        System.out.println(spot.getmynumber());
+        printpostFix(spot.myleft);
+        printpostFix(spot.myright);
+        System.out.println(spot.getMyNumber());
     }
 
-    private void remove(int number) {
+    public void remove(int number) {
         BinaryTreeNode spot = null;
         BinaryTreeNode temporary = myroot;
 
-        while (temporary != null && temporary.getmynumber() != number) {
+        while (temporary != null && temporary.getMyNumber() != number) {
             spot = temporary;
-            if (number < temporary.getmynumber()) {
+            if (number < temporary.getMyNumber()) {
                 temporary = temporary.myleft;
             }
             else {
@@ -94,14 +95,13 @@ public class BinaryTreeHelper {
         }
 
         if (temporary.myright == null && temporary.myleft == null) {
-            if (number<spot.getmynumber()) {
+            if (number<spot.getMyNumber()) {
                 spot.myleft = null;
-                return;
             }
             else {
                 spot.myright = null;
-                return;
             }
+            return;
         }
 
         if (temporary.myright == null || temporary.myleft == null) {
@@ -115,7 +115,7 @@ public class BinaryTreeHelper {
             }
             else {
                 if (temporary.myleft == null) {
-                    if (number < spot.getmynumber()) {
+                    if (number < spot.getMyNumber()) {
                         spot.myleft = temporary.myright;
                     }
                     else {
@@ -123,7 +123,7 @@ public class BinaryTreeHelper {
                     }
                 }
                 else {
-                    if (number < spot.getmynumber()) {
+                    if (number < spot.getMyNumber()) {
                         spot.myleft = temporary.myleft;
                     }
                     else {
@@ -131,15 +131,76 @@ public class BinaryTreeHelper {
                     }
                 }
             }
+            return;
         }
 
-        if (temporary.myleft != null && temporary.myright != null) {
-            if (temporary == myroot) {
-                spot = temporary.myleft;
-                while (spot.myright != null) {
-                    spot = spot.myright;
-                }
-            }
+        spot = temporary;
+        BinaryTreeNode find = temporary.myleft;
+        while (find != null) {
+            spot = find;
+            find = find.myright;
         }
+        if (find == temporary.myleft) {
+            temporary.setMyNumber(find.getMyNumber());
+            temporary.myleft = find.myleft;
+        }
+        else {
+            temporary.setMyNumber(find.getMyNumber());
+            spot.myright = find.myleft;
+        }
+
+    }
+
+    public int count() {
+        return count(myroot);
+    }
+
+    private int count(BinaryTreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        return 1 + count(node.myleft) + count(node.myright);
+    }
+
+    public boolean findNum(int number) {
+        return findNum(myroot, number);
+    }
+
+    private boolean findNum(BinaryTreeNode node, int number) {
+        if (node == null) {
+            return false;
+        }
+
+        if (node.getMyNumber() == number) {
+            return true;
+        }
+        else { return findNum(node.myleft, number) || findNum(node.myright, number); }
+    }
+
+    public int findDepth() {
+        return findDepth(myroot) + 1;
+    }
+
+    private int findDepth(BinaryTreeNode node) {
+        if (node == null) {
+            return -1;
+        }
+
+        int leftDepth = findDepth(node.myleft);
+        int rightDepth = findDepth(node.myright);
+
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public int findWidth() {
+        return findWidth(myroot, 1);
+    }
+
+    private int findWidth(BinaryTreeNode node, int width) {
+        if (node == null) {
+            return 0;
+        }
+        return 0;
     }
 }

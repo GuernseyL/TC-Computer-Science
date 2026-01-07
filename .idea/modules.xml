@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AP 2 Computer Science.iml" filepath="$PROJECT_DIR$/AP 2 Computer Science.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Principles/Principles.iml" filepath="$PROJECT_DIR$/Principles/Principles.iml" />
     </modules>
   </component>
 </project>

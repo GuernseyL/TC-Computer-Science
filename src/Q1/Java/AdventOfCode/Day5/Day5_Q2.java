@@ -48,11 +48,15 @@ public class Day5_Q2 {
         BigInteger bi2 = new BigInteger(list.getFirst().substring(list.getFirst().indexOf("-") + 1));
 
         for (int j = 1; j < list.size(); ++j) {
-            if (list.get(j).substring(0, list.get(j).indexOf("-")).compareTo(complete.getLast().substring(complete.getLast().indexOf("-")) + 1) > 0) {
+            long bi1 = Long.parseLong(list.get(j).substring(0, list.get(j).indexOf("-")));
+            long bi12 = Long.parseLong(list.get(j).substring(list.get(j).indexOf("-") + 1));
+            long bi3 = Long.parseLong((complete.getLast().substring(0, complete.getLast().indexOf("-"))));
+            long bi4 = Long.parseLong((complete.getLast().substring(complete.getLast().indexOf("-") + 1)));
+            if (bi1 > bi4) {
                 complete.add(list.get(j));
             }
-            else if (list.get(j).substring(list.get(j).indexOf("-") + 1).compareTo(complete.getLast().substring(complete.getLast().indexOf("-") + 1)) < 0) {
-                complete.set(complete.size() - 1, complete.getLast().substring(0, complete.getLast().indexOf("-") + 1) + list.get(j).substring(list.get(j).indexOf("-") + 1));
+            else if (bi12 > bi4) {
+                complete.set(complete.size() - 1, bi3 + "-" + bi2);
             }
         }
 
@@ -63,7 +67,7 @@ public class Day5_Q2 {
         for (String sss : complete) {
             bi = new BigInteger(sss.substring(0, sss.indexOf("-")));
             bi2 = new BigInteger(sss.substring(sss.indexOf("-") + 1));
-            fresh = fresh.add(bi2.subtract(bi).add(BigInteger.ONE));
+            fresh = fresh.add(bi2.subtract(bi).add(BigInteger.ONE)).abs();
             /*while (!bi.equals(bi2)) {
                 ++fresh;
                 bi = bi.add(BigInteger.ONE);

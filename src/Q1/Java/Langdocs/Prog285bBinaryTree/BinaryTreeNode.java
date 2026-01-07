@@ -11,7 +11,11 @@ public class BinaryTreeNode {
         myright = null;
     }
 
-    public int getmynumber() {
+    public int getMyNumber() {
         return mynumber;
+    }
+
+    public void setMyNumber(int newnumber) {
+        mynumber = newnumber;
     }
 }

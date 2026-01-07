@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class Day11_Q1 {
+public class Day11_Q2 {
     public static void main(String[] args) throws IOException {
         Scanner file = new Scanner(new File("Langdat/Day11-25.txt"));
         Map<String, Set<String>> map = new HashMap<>();
@@ -20,32 +20,47 @@ public class Day11_Q1 {
             map.put(key, set);
         }
         ArrayList<String> code = new ArrayList<>();
-        code.add("you");
+        code.add("svr");
         int count = 0;
-        for (int lcvA = 0; lcvA < 10; lcvA++) {
+        for (int lcvA = 0; lcvA < 604; lcvA++) {
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            list.add(new ArrayList<>());
             ArrayList<String> nextCode = new ArrayList<>();
             for (int lcvB = 0; lcvB < code.size(); lcvB++) {
                 String yes = code.get(lcvB);
                 Set<String> temps = map.get(yes);
                 Iterator<String> it = temps.iterator();
                 while (it.hasNext()) {
+                    int index = 0;
                     String look = it.next();
-                    if (look.equals("you")) {
-                        // nothing
+                    if (look.equals("svr")) {
                     }
                     else {
                         if (look.equals("out")) {
-                            ++count;
+                            if (list.get(index).contains("dac") || list.get(index).contains("fft")) {
+                                ++count;
+                            }
                         }
                         else {
                             nextCode.add(look);
+                            ArrayList<String> temp = new ArrayList<>();
+                            temp.add(look);
+                            if (list.size() < index) {
+                                list.add(temp);
+                            }
+                            else {
+                                temp = list.get(index);
+                                temp.add(look);
+                                list.set(index, temp);
+                            }
                         }
                     }
+                    ++index;
                 }
             }
             code = nextCode;
+            System.out.println("\n\n\n\n\n\n\n\n");
         }
         System.out.println(count);
     }
 }
-
