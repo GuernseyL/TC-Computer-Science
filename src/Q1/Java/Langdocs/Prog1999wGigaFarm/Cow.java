@@ -5,10 +5,19 @@ public class Cow extends Animal {
     private int ID;
     private int Milk;
 
-    public Cow(int ID) {
-        this.ID = ID;
-        super(Generals.random(1000, 1500), Generals.random(5, 8), Generals.random(1, 3), Generals.random(2, 5), Generals.random(1, 4));
+    public double setIncome() {
+        return 0.0;
+    }
+
+    public double setIncome(Double Cost) {
+        return Milk * Cost;
+    }
+
+    public Cow(int ID, Double FarmCost) {
+        super(ID, Generals.random(1000, 1500), Generals.random(5, 8), Generals.random(1, 3), Generals.random(2, 5), Generals.random(1, 4));
         Milk = Generals.random(20, 100);
+        setCost();
+        Income = setIncome(FarmCost);
     }
 
     public int getID() { return ID; }

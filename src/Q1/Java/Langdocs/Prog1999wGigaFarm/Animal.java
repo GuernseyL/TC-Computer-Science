@@ -2,7 +2,8 @@ package Q1.Java.Langdocs.Prog1999wGigaFarm;
 
 public abstract class Animal {
     private double Cost;
-    private double Income;
+    protected double Income;
+    private int ID;
     private int Weight;
     private int CornCobs;
     private int Oats;
@@ -10,7 +11,7 @@ public abstract class Animal {
     private int Hay;
 
 
-    public Animal(int W, int C, int O, int B, int H) {
+    public Animal(int ID, int W, int C, int O, int B, int H) {
         Weight = W;
         CornCobs = C;
         Oats = O;
@@ -18,6 +19,13 @@ public abstract class Animal {
         Hay = H;
     }
 
+    public void setCost() {
+        Cost = (2.25 * Hay) + (.19 * CornCobs) + (0.07 + Beans) + (0.04 * Oats);
+    }
+
+    public abstract double setIncome();
+
+    public int getID() { return ID; }
     public int getWeight() { return Weight; }
     public int getCornCobs() { return CornCobs; }
     public int getOats() { return Oats; }
