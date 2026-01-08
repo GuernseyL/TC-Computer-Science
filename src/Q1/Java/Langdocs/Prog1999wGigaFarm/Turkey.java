@@ -11,7 +11,7 @@ public class Turkey extends Animal {
         return Worth * this.getWeight();
     }
 
-    public Turkey(int ID) {
+    public Turkey(String ID) {
         Random rand = new Random();
         Worth = rand.nextDouble(.75, .99);
         super(ID, Generals.random(25, 35), Generals.random(1, 3), Generals.random(2, 4), 0, 0);

@@ -13,7 +13,7 @@ public class Cow extends Animal {
         return Milk * Cost;
     }
 
-    public Cow(int ID, Double FarmCost) {
+    public Cow(String ID, Double FarmCost) {
         super(ID, Generals.random(1000, 1500), Generals.random(5, 8), Generals.random(1, 3), Generals.random(2, 5), Generals.random(1, 4));
         Milk = Generals.random(20, 100);
         setCost();

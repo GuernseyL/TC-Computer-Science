@@ -11,7 +11,7 @@ public abstract class Animal {
     private int Hay;
 
 
-    public Animal(int ID, int W, int C, int O, int B, int H) {
+    public Animal(String ID, int W, int C, int O, int B, int H) {
         Weight = W;
         CornCobs = C;
         Oats = O;
