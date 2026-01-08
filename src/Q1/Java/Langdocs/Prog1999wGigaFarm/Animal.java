@@ -23,6 +23,10 @@ public abstract class Animal {
         Cost = (2.25 * Hay) + (.19 * CornCobs) + (0.07 + Beans) + (0.04 * Oats);
     }
 
+    public void addWeight() {
+        Weight += Hay + CornCobs + Beans + Oats;
+    }
+
     public abstract double setIncome();
 
     public int getID() { return ID; }

@@ -7,7 +7,11 @@ public class Node {
 
     public Node(Horse Horse) {
         myPrev  = null;
-        Horse = Horse;
+        Horse = new Horse();
         myNext  = null;
+    }
+
+    public Horse getHorse() {
+        return Horse;
     }
 }

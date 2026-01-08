@@ -33,5 +33,41 @@ public class Prog1999wHorseLinkedList {
             temp = temp.myNext;
         }
     }
+
+    public int getHay() {
+        int Hay = 0;
+        Node temp = myroot;
+        while(temp!=null) {
+            Hay += temp.getHorse().getHay();
+        }
+        return Hay;
+    }
+
+    public int getOats() {
+        int Oats = 0;
+        Node temp = myroot;
+        while(temp!=null) {
+            Oats += temp.getHorse().getOats();
+        }
+        return Oats;
+    }
+
+    public int getBeans() {
+        int Beans = 0;
+        Node temp = myroot;
+        while(temp!=null) {
+            Beans += temp.getHorse().getBeans();
+        }
+        return Beans;
+    }
+
+    public int getCobs() {
+        int Cobs = 0;
+        Node temp = myroot;
+        while(temp!=null) {
+            Cobs += temp.getHorse().getCornCobs();
+        }
+        return Cobs;
+    }
 }
 
