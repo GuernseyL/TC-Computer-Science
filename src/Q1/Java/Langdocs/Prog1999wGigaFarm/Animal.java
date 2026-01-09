@@ -27,7 +27,7 @@ public abstract class Animal {
         Weight += Hay + CornCobs + Beans + Oats;
     }
 
-    public abstract double setIncome();
+    public abstract void setIncome();
 
     public int getID() { return ID; }
     public int getWeight() { return Weight; }

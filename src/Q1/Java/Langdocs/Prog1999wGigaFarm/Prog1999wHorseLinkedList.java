@@ -48,6 +48,7 @@ public class Prog1999wHorseLinkedList {
         Node temp = myroot;
         while(temp!=null) {
             Oats += temp.getHorse().getOats();
+            temp = temp.myNext;
         }
         return Oats;
     }
@@ -57,6 +58,7 @@ public class Prog1999wHorseLinkedList {
         Node temp = myroot;
         while(temp!=null) {
             Beans += temp.getHorse().getBeans();
+            temp = temp.myNext;
         }
         return Beans;
     }
@@ -66,8 +68,27 @@ public class Prog1999wHorseLinkedList {
         Node temp = myroot;
         while(temp!=null) {
             Cobs += temp.getHorse().getCornCobs();
+            temp = temp.myNext;
         }
         return Cobs;
+    }
+
+    public void addWeight() {
+        Node temp = myroot;
+        while(temp!=null) {
+            temp.getHorse().addWeight();
+            temp = temp.myNext;
+        }
+    }
+
+    public double getCost() {
+        Node temp = myroot;
+        double Cost = 0;
+        while(temp!=null) {
+            Cost += temp.getHorse().getCost();
+            temp = temp.myNext;
+        }
+        return Cost;
     }
 }
 

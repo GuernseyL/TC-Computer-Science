@@ -7,8 +7,8 @@ import java.util.Random;
 public class Turkey extends Animal {
     private double Worth;
 
-    public double setIncome() {
-        return Worth * this.getWeight();
+    public void setIncome() {
+        Income = Worth * this.getWeight();
     }
 
     public Turkey(String ID) {
@@ -16,6 +16,6 @@ public class Turkey extends Animal {
         Worth = rand.nextDouble(.75, .99);
         super(ID, Generals.random(25, 35), Generals.random(1, 3), Generals.random(2, 4), 0, 0);
         setCost();
-        Income = setIncome();
+        setIncome();
     }
 }

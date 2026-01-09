@@ -7,8 +7,8 @@ import java.util.Random;
 public class Pig extends Animal {
     private double Worth;
 
-    public double setIncome() {
-        return Worth * this.getWeight();
+    public void setIncome() {
+        Income = Worth * this.getWeight();
     }
 
     public Pig() {
@@ -16,6 +16,6 @@ public class Pig extends Animal {
         Worth = rand.nextDouble(2.25, 2.75);
         super("N/A", Generals.random(250, 300), Generals.random(5, 10), Generals.random(10, 20), Generals.random(25, 50), 0);
         setCost();
-        Income = setIncome();
+        setIncome();
     }
 }

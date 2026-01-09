@@ -5,8 +5,8 @@ public class Cow extends Animal {
     private int ID;
     private int Milk;
 
-    public double setIncome() {
-        return 0.0;
+    public void setIncome() {
+        return;
     }
 
     public double setIncome(Double Cost) {

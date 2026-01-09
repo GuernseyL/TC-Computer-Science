@@ -8,12 +8,11 @@ public class Horse extends Animal {
     private String Name;
     private Double RiderCost;
 
-    public double setIncome() {
-        return 0.0;
-    }
+    public void setIncome() { }
 
     public double setIncome(int Riders) {
-        return RiderCost * Riders;
+        Income += RiderCost * Riders;
+        return Income;
     }
 
     public Horse() {

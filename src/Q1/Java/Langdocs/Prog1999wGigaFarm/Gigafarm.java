@@ -32,7 +32,7 @@ public class Gigafarm {
             if (Cob + TotalCobs() > StartingCornCobs) {
                 Cob = StartingCornCobs - TotalBales();
             }
-            HayBales.push(Cob);
+            CornCobs.add(Cob);
         }
         Beans = Generals.random(750, 1000);
         Oats = Generals.random(1750, 2500);
@@ -133,6 +133,7 @@ public class Gigafarm {
             TotalHayBales += turkey.getHay();
             TotalCornCobs += turkey.getCornCobs();
             turkey.addWeight();
+            turkey.setIncome();
         }
         for (Pig pig : Pigs) {
             if (pig != null) {
@@ -140,11 +141,72 @@ public class Gigafarm {
                 TotalBeans += pig.getBeans();
                 TotalOats += pig.getOats();
                 pig.addWeight();
+                pig.setIncome();
             }
         }
         TotalHayBales += Horses.getHay();
         TotalCornCobs += Horses.getCobs();
         TotalBeans += Horses.getBeans();
         TotalOats += Horses.getOats();
+        Horses.addWeight();
+
+        while (TotalHayBales > HayBales.getLast()) {
+            int Bale = HayBales.pop();
+            TotalHayBales -= Bale;
+        }
+        int LastBale = HayBales.pop() - TotalHayBales;
+        HayBales.push(TotalHayBales);
+        while (TotalCornCobs > CornCobs.peek()) {
+            int Cob = CornCobs.poll();
+            TotalCornCobs -= Cob;
+        }
+        int LastCob = CornCobs.poll() - TotalCornCobs;
+        CornCobs.add(LastCob);
+        Beans -= TotalBeans;
+        Oats -= TotalOats;
+    }
+
+    public double getCost() {
+        double TotalCost = 0;
+        for (String cow :  CowMap.keySet()) {
+            TotalCost += CowMap.get(cow).getCost();
+        }
+        for (Pig pig : Pigs) {
+            if (pig != null) {
+                TotalCost += pig.getCost();
+            }
+        }
+        for (Turkey turkey : Turkeys) {
+            TotalCost += turkey.getCost();
+        }
+        TotalCost += Horses.getCost();
+        return TotalCost;
+    }
+
+    public double getIncome() {
+        double TotalIncome = 0;
+        for (int W = 0; W < Month.length; ++W) {
+            for (int D = 0; D < Month[W].length; ++D) {
+                this.Feed();
+                for (String cow : CowMap.keySet()) {
+                    TotalIncome += CowMap.get(cow).getIncome();
+                }
+                for (Pig pig : Pigs) {
+                    if (pig != null) {
+                        TotalIncome += pig.getIncome();
+                    }
+                }
+                for (Turkey turkey : Turkeys) {
+                    TotalIncome += turkey.getIncome();
+                }
+
+            }
+        }
+        return TotalIncome;
+    }
+
+    public double getProft() {
+        int Profit = 0;
+        return Profit;
     }
 }
