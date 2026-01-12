@@ -166,47 +166,130 @@ public class Gigafarm {
         Oats -= TotalOats;
     }
 
-    public double getCost() {
-        double TotalCost = 0;
+    public double getCowCost() {
+        double Cost = 0;
         for (String cow :  CowMap.keySet()) {
-            TotalCost += CowMap.get(cow).getCost();
+            Cost += CowMap.get(cow).getCost();
         }
+        return Cost;
+    }
+
+    public double getPigCost() {
+        double Cost = 0;
         for (Pig pig : Pigs) {
             if (pig != null) {
-                TotalCost += pig.getCost();
+                Cost += pig.getCost();
             }
         }
+        return Cost;
+    }
+
+    public double getTurkeyCost() {
+        double Cost = 0;
         for (Turkey turkey : Turkeys) {
-            TotalCost += turkey.getCost();
+            Cost += turkey.getCost();
         }
+        return Cost;
+    }
+
+
+
+    public double getCost() {
+        double TotalCost = 0;
+        TotalCost += getCowCost();
+        TotalCost += getPigCost();
+        TotalCost += getTurkeyCost();
         TotalCost += Horses.getCost();
         return TotalCost;
     }
 
-    public double getIncome() {
-        double TotalIncome = 0;
+    public double getCowIncome() {
+        double Income = 0;
         for (int W = 0; W < Month.length; ++W) {
             for (int D = 0; D < Month[W].length; ++D) {
-                this.Feed();
                 for (String cow : CowMap.keySet()) {
-                    TotalIncome += CowMap.get(cow).getIncome();
+                    Income += CowMap.get(cow).getIncome();
                 }
-                for (Pig pig : Pigs) {
-                    if (pig != null) {
-                        TotalIncome += pig.getIncome();
-                    }
-                }
-                for (Turkey turkey : Turkeys) {
-                    TotalIncome += turkey.getIncome();
-                }
-
             }
         }
+        return Income;
+    }
+
+    public double getPigIncome() {
+        double Income = 0;
+        for (int W = 0; W < Month.length; ++W) {
+            for (int D = 0; D < Month[W].length; ++D) {
+                for (Pig pig : Pigs) {
+                    if (pig != null) {
+                        Income += pig.getIncome();
+                    }
+                }
+            }
+        }
+        return Income;
+    }
+
+    public double getTurkeyIncome() {
+        double Income = 0;
+        for (int W = 0; W < Month.length; ++W) {
+            for (int D = 0; D < Month[W].length; ++D) {
+                for (Turkey turkey : Turkeys) {
+                    Income += turkey.getIncome();
+                }
+            }
+        }
+        return Income;
+    }
+    public double getIncome() {
+        double TotalIncome = 0;
+        Gigafarm GF = this;
+        for (int W = 0; W < Month.length; ++W) {
+            for (int D = 0; D < Month[W].length; ++D) {
+                GF.Feed();
+            }
+        }
+        TotalIncome += GF.getCowIncome();
+        TotalIncome += GF.getPigIncome();
+        TotalIncome += GF.getTurkeyIncome();
+        TotalIncome += GF.Horses.getIncome(Month);
         return TotalIncome;
     }
 
     public double getProft() {
-        int Profit = 0;
-        return Profit;
+        return getIncome() - getCost();
+    }
+
+    public void getWorthless() {
+        Gigafarm GF = this;
+        for (int W = 0; W < Month.length; ++W) {
+            for (int D = 0; D < Month[W].length; ++D) {
+                GF.Feed();
+            }
+        }
+
+        double CowProfit = GF.getCowIncome() - GF.getCowCost();
+        double PigProfit = GF.getPigIncome() - GF.getPigCost();
+        double TurkeyProfit = GF.getTurkeyIncome() - GF.getTurkeyCost();
+        double HorseProfit = GF.Horses.getIncome(Month) - GF.Horses.getCost();
+
+        double LeastProfit = Math.min(CowProfit, PigProfit);
+        LeastProfit = Math.min(LeastProfit, TurkeyProfit);
+        LeastProfit = Math.min(LeastProfit, HorseProfit);
+
+        if (LeastProfit == CowProfit) {
+            System.out.print("Cows produce the least amount of profit on this farm");
+        }
+
+        else if (LeastProfit == PigProfit) {
+            System.out.print("Pigs produce the least amount of profit on this farm");
+        }
+
+        else if (LeastProfit == TurkeyProfit) {
+            System.out.print("Turkeys produce the least amount of profit on this farm");
+        }
+
+        else if (LeastProfit == HorseProfit) {
+            System.out.print("Horses produce the least amount of profit on this farm");
+        }
     }
 }

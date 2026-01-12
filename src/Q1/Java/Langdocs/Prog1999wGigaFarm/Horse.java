@@ -8,11 +8,8 @@ public class Horse extends Animal {
     private String Name;
     private Double RiderCost;
 
-    public void setIncome() { }
-
-    public double setIncome(int Riders) {
-        Income += RiderCost * Riders;
-        return Income;
+    public void setIncome() {
+        Income = RiderCost;
     }
 
     public Horse() {
@@ -22,6 +19,7 @@ public class Horse extends Animal {
         RiderCost = rand.nextDouble(7, 10.50);
         super("N/A", Generals.random(1500, 2000), Generals.random(2, 4), Generals.random(1, 4), Generals.random(2, 5), Generals.random(2, 3));
         setCost();
+        setIncome();
         for (int i = 1; i <= 4; i++) {
             if (i == 1) {
                 Name = Const[rand.nextInt(Const.length)];
