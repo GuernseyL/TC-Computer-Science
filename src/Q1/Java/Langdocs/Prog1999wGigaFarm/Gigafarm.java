@@ -11,7 +11,7 @@ public class Gigafarm {
     private int Oats;
     private int[][] Month = new int[3][7];
     private Double MilkCost;
-    private Map<String, Cow> CowMap;
+    private Map<String, Cow> CowMap = new HashMap<>();
     private Set<Turkey> Turkeys;
     private Pig[] Pigs = new Pig[20];
     private Prog1999wHorseLinkedList Horses = new Prog1999wHorseLinkedList();
@@ -97,7 +97,8 @@ public class Gigafarm {
         }
         int HorseMax = Generals.random(8, 10);
         for (int i = 0; i < HorseMax; ++i) {
-            Horses.addfront(new Node(new Horse()));
+            Node node = new Node();
+            Horses.addfront(node);
         }
     }
 
@@ -192,7 +193,9 @@ public class Gigafarm {
         return Cost;
     }
 
-
+    public double getHorseCost() {
+        return Horses.getCost();
+    }
 
     public double getCost() {
         double TotalCost = 0;
@@ -240,6 +243,11 @@ public class Gigafarm {
         }
         return Income;
     }
+
+    public double getHorseIncome() {
+        return Horses.getIncome(Month);
+    }
+
     public double getIncome() {
         double TotalIncome = 0;
         Gigafarm GF = this;
@@ -263,33 +271,37 @@ public class Gigafarm {
         Gigafarm GF = this;
         for (int W = 0; W < Month.length; ++W) {
             for (int D = 0; D < Month[W].length; ++D) {
-                GF.Feed();
+                Feed();
             }
         }
 
-        double CowProfit = GF.getCowIncome() - GF.getCowCost();
-        double PigProfit = GF.getPigIncome() - GF.getPigCost();
-        double TurkeyProfit = GF.getTurkeyIncome() - GF.getTurkeyCost();
-        double HorseProfit = GF.Horses.getIncome(Month) - GF.Horses.getCost();
+        double CowProfit = getCowIncome() - getCowCost();
+        double PigProfit = getPigIncome() - getPigCost();
+        double TurkeyProfit = getTurkeyIncome() - getTurkeyCost();
+        double HorseProfit = Horses.getIncome(Month) - Horses.getCost();
 
         double LeastProfit = Math.min(CowProfit, PigProfit);
         LeastProfit = Math.min(LeastProfit, TurkeyProfit);
         LeastProfit = Math.min(LeastProfit, HorseProfit);
 
         if (LeastProfit == CowProfit) {
-            System.out.print("Cows produce the least amount of profit on this farm");
+            System.out.println("Cows produce the least amount of profit on this farm");
         }
 
         else if (LeastProfit == PigProfit) {
-            System.out.print("Pigs produce the least amount of profit on this farm");
+            System.out.println("Pigs produce the least amount of profit on this farm");
         }
 
         else if (LeastProfit == TurkeyProfit) {
-            System.out.print("Turkeys produce the least amount of profit on this farm");
+            System.out.println("Turkeys produce the least amount of profit on this farm");
         }
 
         else if (LeastProfit == HorseProfit) {
-            System.out.print("Horses produce the least amount of profit on this farm");
+            System.out.println("Horses produce the least amount of profit on this farm");
         }
+    }
+
+    public Prog1999wHorseLinkedList getHorses() {
+        return Horses;
     }
 }

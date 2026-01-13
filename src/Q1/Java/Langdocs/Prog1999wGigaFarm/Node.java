@@ -2,16 +2,16 @@ package Q1.Java.Langdocs.Prog1999wGigaFarm;
 
 public class Node {
     public  Node       myPrev;
-    private Horse      Horse;
+    private Horse      myHorse;
     public  Node       myNext;
 
-    public Node(Horse Horse) {
+    public Node() {
         myPrev  = null;
-        Horse = new Horse();
+        myHorse = new Horse();
         myNext  = null;
     }
 
     public Horse getHorse() {
-        return Horse;
+        return myHorse;
     }
 }

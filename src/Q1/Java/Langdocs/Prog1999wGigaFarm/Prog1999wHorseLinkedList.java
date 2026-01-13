@@ -37,75 +37,97 @@ public class Prog1999wHorseLinkedList {
 
     public int getHay() {
         int Hay = 0;
-        Node temp = myroot;
-        while (temp != null) {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
             Hay += temp.getHorse().getHay();
+            temp = temp.myNext;
         }
+        Hay += temp.getHorse().getHay();
         return Hay;
     }
 
     public int getOats() {
         int Oats = 0;
-        Node temp = myroot;
-        while (temp != null) {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
             Oats += temp.getHorse().getOats();
             temp = temp.myNext;
         }
+        Oats += temp.getHorse().getOats();
         return Oats;
     }
 
     public int getBeans() {
         int Beans = 0;
-        Node temp = myroot;
-        while (temp != null) {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
             Beans += temp.getHorse().getBeans();
             temp = temp.myNext;
         }
+        Beans += temp.getHorse().getBeans();
         return Beans;
     }
 
     public int getCobs() {
         int Cobs = 0;
-        Node temp = myroot;
-        while (temp != null) {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
             Cobs += temp.getHorse().getCornCobs();
             temp = temp.myNext;
         }
+        Cobs += temp.getHorse().getCornCobs();
         return Cobs;
     }
 
     public void addWeight() {
-        Node temp = myroot;
-        while (temp != null) {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
             temp.getHorse().addWeight();
             temp = temp.myNext;
         }
+        temp.getHorse().addWeight();
     }
 
     public double getCost() {
-        Node temp = myroot;
+        Node temp = myroot.myNext;
         double Cost = 0;
-        while (temp != null) {
+        while (temp != myroot) {
             Cost += temp.getHorse().getCost();
             temp = temp.myNext;
         }
+        Cost += temp.getHorse().getCost();
         return Cost;
     }
 
     public double getIncome(int[][] month) {
-        double Income = 0;
-        int[][] monthB = Arrays.copyOf(month, month.length);
+        double TotIncome = 0;
         for (int lcvA = 0; lcvA < month.length; lcvA++) {
             for (int lcvB = 0; lcvB < month[lcvA].length; lcvB++) {
                 Node temp = myroot;
-                while (monthB[lcvA][lcvB] > 0) {
-                    Income += temp.getHorse().getIncome();
-                    monthB[lcvA][lcvB]--;
+                while (month[lcvA][lcvB] > 0) {
+                    TotIncome += temp.getHorse().getIncome();
+                    month[lcvA][lcvB]--;
                     temp = temp.myNext;
                 }
             }
         }
-        return Income;
+        return TotIncome;
+    }
+
+    public void getNames() {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
+            System.out.println(temp.getHorse().getName());
+            temp = temp.myNext;
+        }
+    }
+
+    public void printIncomes() {
+        Node temp = myroot.myNext;
+        while (temp != myroot) {
+            System.out.println(temp.getHorse().getIncome());
+            temp = temp.myNext;
+        }
     }
 }
 
