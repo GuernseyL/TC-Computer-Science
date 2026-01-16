@@ -102,6 +102,10 @@ public class Gigafarm {
         }
     }
 
+    public Map<String, Cow> getCowMap() {
+        return CowMap;
+    }
+
     public int TotalBales() {
         int Sum = 0;
         for (Integer i : HayBales) {
@@ -118,38 +122,87 @@ public class Gigafarm {
         return Sum;
     }
 
+    public int getHay() {
+        int TotalHay = 0;
+        for (String Cow : CowMap.keySet()) {
+            TotalHay += CowMap.get(Cow).getHay();
+        }
+        TotalHay += Horses.getHay();
+        return TotalHay;
+    }
+
+    public int getCorn() {
+        int TotalCorn = 0;
+        for (String Cow : CowMap.keySet()) {
+            TotalCorn += CowMap.get(Cow).getCornCobs();
+        }
+        for (Turkey Turkey : Turkeys) {
+            TotalCorn += Turkey.getCornCobs();
+        }
+        for (Pig Pig : Pigs) {
+            if (Pig != null) {
+                TotalCorn += Pig.getCornCobs();
+            }
+        }
+        TotalCorn += Horses.getCobs();
+        return TotalCorn;
+    }
+
+    public int getBeans() {
+        int TotalBeans = 0;
+        for (String Cow : CowMap.keySet()) {
+            TotalBeans += CowMap.get(Cow).getBeans();
+        }
+        for (Pig Pig : Pigs) {
+            if (Pig != null) {
+                TotalBeans += Pig.getBeans();
+            }
+        }
+        TotalBeans += Horses.getBeans();
+        return TotalBeans;
+    }
+
+    public int getOats() {
+        int TotalOats = 0;
+        for (String Cow : CowMap.keySet()) {
+            TotalOats += CowMap.get(Cow).getOats();
+        }
+        for (Turkey Turkey : Turkeys) {
+            TotalOats += Turkey.getOats();
+        }
+        for (Pig Pig : Pigs) {
+            if (Pig != null) {
+                TotalOats += Pig.getOats();
+            }
+        }
+        TotalOats += Horses.getOats();
+        return TotalOats;
+    }
+
     public void Feed() {
         int TotalHayBales = 0;
         int TotalCornCobs = 0;
         int TotalBeans = 0;
         int TotalOats = 0;
+
+        TotalHayBales = getHay();
+        TotalCornCobs = getCorn();
+        TotalBeans = getBeans();
+        TotalOats = getOats();
         for (String cow : CowMap.keySet()) {
-            TotalHayBales += CowMap.get(cow).getHay();
-            TotalCornCobs += CowMap.get(cow).getCornCobs();
-            TotalBeans += CowMap.get(cow).getBeans();
-            TotalOats += CowMap.get(cow).getOats();
-            CowMap.get(cow).addWeight();
+            //CowMap.get(cow).addWeight();
         }
         for (Turkey turkey : Turkeys) {
-            TotalHayBales += turkey.getHay();
-            TotalCornCobs += turkey.getCornCobs();
-            turkey.addWeight();
+            //turkey.addWeight();
             turkey.setIncome();
         }
         for (Pig pig : Pigs) {
             if (pig != null) {
-                TotalCornCobs += pig.getCornCobs();
-                TotalBeans += pig.getBeans();
-                TotalOats += pig.getOats();
-                pig.addWeight();
+                //pig.addWeight();
                 pig.setIncome();
             }
         }
-        TotalHayBales += Horses.getHay();
-        TotalCornCobs += Horses.getCobs();
-        TotalBeans += Horses.getBeans();
-        TotalOats += Horses.getOats();
-        Horses.addWeight();
+        //Horses.addWeight();
 
         while (TotalHayBales > HayBales.getLast()) {
             int Bale = HayBales.pop();
@@ -267,7 +320,7 @@ public class Gigafarm {
         return getIncome() - getCost();
     }
 
-    public void getWorthless() {
+    public void getBest() {
         Gigafarm GF = this;
         for (int W = 0; W < Month.length; ++W) {
             for (int D = 0; D < Month[W].length; ++D) {
@@ -278,26 +331,121 @@ public class Gigafarm {
         double CowProfit = getCowIncome() - getCowCost();
         double PigProfit = getPigIncome() - getPigCost();
         double TurkeyProfit = getTurkeyIncome() - getTurkeyCost();
-        double HorseProfit = Horses.getIncome(Month) - Horses.getCost();
+        double x = Horses.getIncome(Month);
+        double HorseProfit = x - Horses.getCost();
 
-        double LeastProfit = Math.min(CowProfit, PigProfit);
-        LeastProfit = Math.min(LeastProfit, TurkeyProfit);
-        LeastProfit = Math.min(LeastProfit, HorseProfit);
+        double BestProfit = Math.max(CowProfit, PigProfit);
+        BestProfit = Math.max(BestProfit, TurkeyProfit);
+        BestProfit = Math.max(BestProfit, HorseProfit);
 
-        if (LeastProfit == CowProfit) {
-            System.out.println("Cows produce the least amount of profit on this farm");
+        if (BestProfit == CowProfit) {
+            System.out.println("Cows produce the most amount of profit on this farm");
         }
 
-        else if (LeastProfit == PigProfit) {
-            System.out.println("Pigs produce the least amount of profit on this farm");
+        else if (BestProfit == PigProfit) {
+            System.out.println("Pigs produce the most amount of profit on this farm");
         }
 
-        else if (LeastProfit == TurkeyProfit) {
-            System.out.println("Turkeys produce the least amount of profit on this farm");
+        else if (BestProfit == TurkeyProfit) {
+            System.out.println("Turkeys produce the most amount of profit on this farm");
         }
 
-        else if (LeastProfit == HorseProfit) {
-            System.out.println("Horses produce the least amount of profit on this farm");
+        else if (BestProfit == HorseProfit) {
+            System.out.println("Horses produce the most amount of profit on this farm");
+        }
+    }
+
+    public void getMilkPounds() {
+        int milk = 0;
+        for (String Cow : CowMap.keySet()) {
+            milk += CowMap.get(Cow).getMilk() * 21;
+        }
+        System.out.println("Cows produce " + milk + " pounds of milk on this farm");
+    }
+
+    public void getTurkeyWeight() {
+        int weight = 0;
+        for (Turkey turkey : Turkeys) {
+            weight += turkey.getWeight();
+        }
+        System.out.println("Turkeys weigh a total of " + weight + " pounds on this farm");
+    }
+
+    public void getExpensiveCrop() {
+        double CornCost = getCorn() * .19;
+        double HayCost = getHay() * 2.25;
+        double BeanCost = getBeans() * .07;
+        double OatCost = getOats() * .04;
+        double BigCost = Math.max(CornCost, HayCost);
+        BigCost = Math.max(BigCost, BeanCost);
+        BigCost = Math.max(BigCost, OatCost);
+
+        if (BigCost == CornCost) {
+            System.out.println("CornCobs are the most expensive on this farm");
+        }
+        else if (BigCost == HayCost) {
+            System.out.println("HayBales are the most expensive on this farm");
+        }
+        else if (BigCost == BeanCost) {
+            System.out.println("Beans are the most expensive on this farm");
+        }
+        else if (BigCost == OatCost) {
+            System.out.println("Oats are the most expensive on this farm");
+        }
+    }
+
+    public void CostForFeedOneDay() {
+        double cost = 0;
+        cost += getCorn() * .19;
+        cost += getHay() * 2.25;
+        cost += getBeans() * .07;
+        cost += getOats() * .04;
+
+        System.out.println("Cost for feeding one day: " + cost);
+    }
+
+    public double TotalIncome() {
+        double Income = 0;
+        Income += getCowIncome();
+        Income += getPigIncome();
+        Income += getTurkeyIncome();
+        Income += getHorseIncome();
+
+        return Income;
+    }
+
+    public double TotalCost() {
+        double cost = 0;
+        for (int D = 1; D <= 21; ++D) {
+            cost += getCorn() * .19;
+            cost += getHay() * 2.25;
+            cost += getBeans() * .07;
+            cost += getOats() * .04;
+        }
+
+        return cost;
+    }
+
+    public void Profit() {
+        System.out.println("Profit: " + (TotalIncome()-TotalCost()));
+    }
+
+    public Cow LeastProfitableCow() {
+        String key = CowMap.keySet().iterator().next();
+        Cow wow = CowMap.get(key);
+        for (String keys : CowMap.keySet()) {
+            if (wow.getProfit() > CowMap.get(keys).getProfit()) {
+                wow = CowMap.get(keys);
+            }
+        }
+        return wow;
+    }
+
+    public void RemoveCow(Cow cow) {
+        for (String keys : CowMap.keySet()) {
+            if (cow == CowMap.get(keys)) {
+                CowMap.remove(keys);
+            }
         }
     }
 

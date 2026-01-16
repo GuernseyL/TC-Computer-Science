@@ -105,7 +105,8 @@ public class Prog1999wHorseLinkedList {
             for (int lcvB = 0; lcvB < month[lcvA].length; lcvB++) {
                 Node temp = myroot;
                 while (month[lcvA][lcvB] > 0) {
-                    TotIncome += temp.getHorse().getIncome();
+                    double x = temp.getHorse().getIncome();
+                    TotIncome += x;
                     month[lcvA][lcvB]--;
                     temp = temp.myNext;
                 }
