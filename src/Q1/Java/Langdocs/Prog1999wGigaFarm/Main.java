@@ -50,34 +50,60 @@ public class Main {
             ++x;
         }
 
+        x = 0;
+        for (Gigafarm GigaFarm : GigaFarms) {
+            ++x;
+            int count = 0;
+            for (String key : GigaFarm.getCowMap().keySet()) {
+                ++count;
+            }
+            System.out.println("Farm " + x + " has " + count + " cows");
+        }
+
         int deleted = 0;
         Boolean AllDeleted = false;
         Boolean[] Bools = new Boolean[5];
         for (int i = 0; i < 5; ++i) {
             Bools[i] = AllDeleted;
         }
-        while (deleted < 7 && !AllDeleted) {
+        while (deleted < 7 || !AllDeleted) {
             if (deleted >= 7) {
                 for (int i = 0; i < 5; ++i) {
                     AllDeleted = true;
                     if (!Bools[i]) {
                         AllDeleted = false;
                         GigaFarms[i].RemoveCow(Cows[i]);
+
                     }
                 }
             }
-            Cow wow = getLowestCow(Cows);
-            int Index = IndexOfCow(Cows, wow);
-            Bools[Index] = true;
-            GigaFarms[Index].RemoveCow(Cows[Index]);
-            Cows[Index] = GigaFarms[Index].LeastProfitableCow();
-            ++deleted;
-            AllDeleted = true;
-            for (int i = 0; i < 5; ++i) {
-                if (!Bools[i]) {
+            else {
+                Cow wow = getLowestCow(Cows);
+                int Index = IndexOfCow(Cows, wow);
+                Bools[Index] = true;
+                GigaFarms[Index].RemoveCow(Cows[Index]);
+                Cows[Index] = GigaFarms[Index].LeastProfitableCow();
+                ++deleted;
+                AllDeleted = true;
+                for (int i = 0; i < 5; ++i) {
+                    if (!Bools[i]) {
                     AllDeleted = false;
+                    }
                 }
             }
+        }
+        x = 0;
+        for (Gigafarm GigaFarm : GigaFarms) {
+            ++x;
+            int count = 0;
+            for (String key : GigaFarm.getCowMap().keySet()) {
+                ++count;
+            }
+            System.out.println("Farm " + x + " has " + count + " cows");
+        }
+
+        for (Gigafarm GigaFarm : GigaFarms) {
+            GigaFarm.RemovePigs(2);
         }
     }
 
@@ -96,7 +122,7 @@ public class Main {
         for (Cow cow : array) {
             ++index;
             if (cow == wow) {
-                return index;
+                return index-1;
             }
         }
         return -1;

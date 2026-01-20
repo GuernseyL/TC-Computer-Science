@@ -442,10 +442,36 @@ public class Gigafarm {
     }
 
     public void RemoveCow(Cow cow) {
+        String key = "";
         for (String keys : CowMap.keySet()) {
             if (cow == CowMap.get(keys)) {
-                CowMap.remove(keys);
+                key = keys;
             }
+        }
+        CowMap.remove(key);
+    }
+
+    public void RemovePigs(int LeftOver) {
+        int count = 0;
+        int index = 0;
+        while (!(count == LeftOver)) {
+            count = 0;
+            for (int lcv = 0; lcv < Pigs.length; ++lcv) {
+                if (!(Pigs[lcv] == null)) {
+                    ++count;
+                    index = lcv;
+                }
+            }
+            Pig pig = Pigs[index];
+            for (int lcv = 0; lcv < Pigs.length; ++lcv) {
+                if (!(Pigs[lcv] == null)) {
+                    if (Pigs[lcv].getProfit() < pig.getProfit()) {
+                        pig = Pigs[lcv];
+                        index = lcv;
+                    }
+                }
+            }
+            Pigs[index] = null;
         }
     }
 
