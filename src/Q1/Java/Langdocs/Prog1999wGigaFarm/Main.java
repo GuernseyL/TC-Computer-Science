@@ -22,7 +22,7 @@ public class Main {
 
             System.out.println();
 
-            GigaFarm.getTurkeyWeight();
+            GigaFarm.getTurkeyWeightPrint();
 
             System.out.println();
 
@@ -104,6 +104,16 @@ public class Main {
 
         for (Gigafarm GigaFarm : GigaFarms) {
             GigaFarm.RemovePigs(2);
+
+            System.out.println();
+
+            GigaFarm.TurkeySellWorsts();
+
+            System.out.println();
+
+            GigaFarm.TotalWeight();
+
+            GigaFarm.RemoveTwoHeavyCows();
         }
     }
 

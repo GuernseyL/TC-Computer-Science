@@ -130,5 +130,27 @@ public class Prog1999wHorseLinkedList {
             temp = temp.myNext;
         }
     }
+
+    public int getWeights() {
+        Node temp = myroot.myNext;
+        int Weight = myroot.getHorse().getWeight();
+        while (temp != myroot) {
+            Weight += temp.getHorse().getWeight();
+            temp = temp.myNext;
+        }
+        return Weight;
+    }
+
+    public Horse returnHeavyHorse() {
+        Node temp = myroot.myNext;
+        Node HeaviestHorse = myroot;
+        while (temp != myroot) {
+            if (temp.getHorse().getWeight() > HeaviestHorse.getHorse().getWeight()) {
+                HeaviestHorse = temp;
+            }
+            temp = temp.myNext;
+        }
+        return HeaviestHorse.getHorse();
+    }
 }
 

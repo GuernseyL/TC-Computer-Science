@@ -220,6 +220,36 @@ public class Gigafarm {
         Oats -= TotalOats;
     }
 
+    public int getCowWeight() {
+        int Weight = 0;
+        for (String Cow : CowMap.keySet()) {
+            Weight += CowMap.get(Cow).getWeight();
+        }
+        return Weight;
+    }
+
+    public int getPigWeight() {
+        int Weight = 0;
+        for (Pig pig : Pigs) {
+            if (pig != null) {
+                Weight += pig.getWeight();
+            }
+        }
+        return Weight;
+    }
+
+    public int getTurkeyWeight() {
+        int Weight = 0;
+        for (Turkey turkey : Turkeys) {
+            Weight += turkey.getWeight();
+        }
+        return Weight;
+    }
+
+    public int getHorsesWeight() {
+        return Horses.getWeights();
+    }
+
     public double getCowCost() {
         double Cost = 0;
         for (String cow :  CowMap.keySet()) {
@@ -363,12 +393,8 @@ public class Gigafarm {
         System.out.println("Cows produce " + milk + " pounds of milk on this farm");
     }
 
-    public void getTurkeyWeight() {
-        int weight = 0;
-        for (Turkey turkey : Turkeys) {
-            weight += turkey.getWeight();
-        }
-        System.out.println("Turkeys weigh a total of " + weight + " pounds on this farm");
+    public void getTurkeyWeightPrint() {
+        System.out.println("Turkeys weigh a total of " + getTurkeyWeight() + " pounds on this farm");
     }
 
     public void getExpensiveCrop() {
@@ -457,14 +483,14 @@ public class Gigafarm {
         while (!(count == LeftOver)) {
             count = 0;
             for (int lcv = 0; lcv < Pigs.length; ++lcv) {
-                if (!(Pigs[lcv] == null)) {
+                if (Pigs[lcv] != null) {
                     ++count;
                     index = lcv;
                 }
             }
             Pig pig = Pigs[index];
             for (int lcv = 0; lcv < Pigs.length; ++lcv) {
-                if (!(Pigs[lcv] == null)) {
+                if (Pigs[lcv] != null) {
                     if (Pigs[lcv].getProfit() < pig.getProfit()) {
                         pig = Pigs[lcv];
                         index = lcv;
@@ -473,6 +499,58 @@ public class Gigafarm {
             }
             Pigs[index] = null;
         }
+    }
+
+    public Turkey getWorstTurkey() {
+        Turkey Worst = null;
+        for (Turkey Turkey : Turkeys) {
+            if (Worst == null) {
+                Worst = Turkey;
+            }
+            else {
+                if (Worst.getProfit() > Turkey.getProfit()) {
+                    Worst = Turkey;
+                }
+            }
+        }
+        return Worst;
+    }
+
+    public void TurkeySellWorsts() {
+        int Size = (Turkeys.size()/2) + 1;
+        while (Turkeys.size() != Size) {
+            Turkeys.remove(getWorstTurkey());
+        }
+    }
+
+    public void TotalWeight() {
+        System.out.println("The animals weigh a total of " + getCowWeight() + getPigWeight() + getTurkeyWeight() + getHorsesWeight() + " pounds.");
+    }
+
+    public void RemoveTwoHeavyCows() {
+        String HeavyKeyA = "";
+        String HeavyKeyB = "";
+        for (String keys : CowMap.keySet()) {
+            if (HeavyKeyA.equals("")) {
+                HeavyKeyA = keys;
+            }
+            else if (HeavyKeyB.equals("")) {
+                HeavyKeyB = keys;
+                if (CowMap.get(HeavyKeyA).getWeight() < CowMap.get(HeavyKeyB).getWeight()) {
+                    String temp = HeavyKeyA;
+                    HeavyKeyA = HeavyKeyB;
+                    HeavyKeyB = temp;
+                }
+            }
+            else {
+                if (CowMap.get(keys).getWeight() > CowMap.get(HeavyKeyA).getWeight()) {
+                    HeavyKeyB = HeavyKeyA;
+                    HeavyKeyA = keys;
+                }
+            }
+        }
+        CowMap.remove(HeavyKeyA);
+        CowMap.remove(HeavyKeyB);
     }
 
     public Prog1999wHorseLinkedList getHorses() {
